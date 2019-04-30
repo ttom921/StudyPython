@@ -1,3 +1,14 @@
-<p>
-  user-add works!
-</p>
+<div>
+  <h2>加入使用者</h2>
+  <p>
+    <label>姓名：<input [(ngModel)]="user.user_name" placeholder="請輸人姓名"> </label>
+  </p>
+  <p>
+    <label>Email:<input [(ngModel)]="user.user_email" placeholder="請輸人email" ></label>
+  </p>
+  <p>
+    <label>密碼:<input type="password" [(ngModel)]="user.user_password" placeholder="請輸人密碼" ></label>
+  </p>
+  <button (click)="goBack()" >回到上一頁</button>
+  <button (click)="save()" >加入</button>
+</div>

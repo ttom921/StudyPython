@@ -1,3 +1,15 @@
-<p>
-  user-edit works!
-</p>
+<div *ngIf="user">
+  <h2>{{user.user_name | uppercase}} Details</h2>
+  <div><span>Id: </span>{{user.user_id}}</div>
+  <div>
+    <p>
+      Name: <input [(ngModel)]="user.user_name" placeholder="User Name">
+    </p>
+    <p>
+      Email: <input [(ngModel)]="user.user_email" placeholder="User Email">
+    </p>
+  </div>
+  <button (click)="goBack()">go back</button>
+
+  <button (click)="save()">save</button>
+</div>

@@ -1,3 +1,13 @@
-<p>
-  user-detail works!
-</p>
+<div *ngIf="user">
+  <h2>{{user.user_name | uppercase }} 細節</h2>
+  <div><span>Id:</span> {{user.user_id}}</div>
+  <div>
+    <p>
+		Name: {{user.user_name}}
+    </p>
+	<p>
+		Email: {{user.user_email}}
+    </p>
+  </div>
+  <button (click)="goBack()">go back</button>
+</div>

@@ -1,6 +1,6 @@
 <h3>使用者列表</h3>
 <div>
-  <!-- <a [routerLink]="[ '/path']">name</a> -->
+  <a [routerLink]="['/add']">加入使用者</a>
 </div>
 <table>
   <tr>
@@ -13,6 +13,12 @@
     <td>{{user.user_id}}</td>
     <td>{{user.user_name}}</td>
     <td>{{user.user_email}}</td>
-    <td>notimp</td>
+    <td>
+      <a routerLink="/detail/{{user.user_id}}">使用者資訊</a>
+      &nbsp;
+      <a routerLink="/edit/{{user.user_id}}">編輯使用者資訊</a>
+      &nbsp;
+      <button (click)="delete(user)">X</button> 
+    </td>
   </tr>
 </table>
