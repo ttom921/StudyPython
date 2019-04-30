@@ -1,0 +1,18 @@
+<h3>使用者列表</h3>
+<div>
+  <!-- <a [routerLink]="[ '/path']">name</a> -->
+</div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let user of users" >
+    <td>{{user.user_id}}</td>
+    <td>{{user.user_name}}</td>
+    <td>{{user.user_email}}</td>
+    <td>notimp</td>
+  </tr>
+</table>
