@@ -1,0 +1,12 @@
+# StudyPython
+學習和測試有關Python
+- pyenv37是虛擬環境和MariaDB的相關資料
+- Testpythonmariadb 測試和mariadb的連接
+- Testflasksql 是有關python和flask的架設和CRUD資料庫mariadb
+- TestFlaskAngular 是Angular和Flask架構結合的測試
+
+詳細的資料放在網站
+
+[pthon的資料](https://ttom921.github.io/categories/學習/Python/Flask/)
+
+[Agular和python的結合](https://ttom921.github.io/categories/記錄/資料庫/)
