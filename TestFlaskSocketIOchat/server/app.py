@@ -36,8 +36,9 @@ def ondisconnect():
 def onchatmessage(data):
     msg = "[server]<chatmessage>:%s" % (data)
     print("[server]<chatmessage>:%s", msg)
-    ##emit("chatmessage", {'data': data})
-    emit("chatmessage", data)
+    ## emit("chatmessage", data)
+    ## emit("chatmessage", data, broadcast=True)
+    emit("chatmessage", data, broadcast=True, include_self=False)
 
 
 if __name__ == "__main__":
