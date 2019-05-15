@@ -4,7 +4,7 @@
 - Testpythonmariadb 測試和mariadb的連接
 - Testflasksql 是有關python和flask的架設和CRUD資料庫mariadb
 - TestFlaskAngular 是Angular和Flask架構結合的測試
-- TestFlaskSocketIO 是測試有關SocketIO
+- TestFlaskSocketIOchat是測試有關SocketIO
 
 詳細的資料放在網站
 
