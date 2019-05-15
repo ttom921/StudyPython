@@ -1,0 +1,10 @@
+#inputdiv { background: rgb(224, 188, 188);padding: 3px;position: fixed;bottom: 0;width: 50%; }
+
+#msginput {border: 0; width: 90%; margin-right: .5% }
+
+#msgbtn {background: rgb(130, 224, 225);border: none;padding: 1px;}
+
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }
+#messages { margin-bottom: 40px }

@@ -1,0 +1,28 @@
+<!-- <div>
+  <div>
+    新的namespace:<input id="namespaceInput" type="text" [(ngModel)]="textNamespace" placeholder="New namespace name">
+    <button (click)="createNamespace()">建立</button>
+    <ul id="messages">
+      <li *ngFor="let item of namespacelst">{{item}}</li>
+    </ul>
+  </div>
+  <div>
+    <input id="namespaceToConnect" type="text" [(ngModel)]="seltextNamespace" placeholder="namespace to connect">
+    <button (click)="joinToNamespace()">連到 Namespace</button>
+
+  </div>
+
+</div> -->
+<div>
+  <h1>python群聊</h1>
+  <ul id="messages">
+    <li *ngFor="let item of messages">{{item}}</li>
+  </ul>
+  <div id="inputdiv">
+    輸入:<input type="text" id="msginput" #textbox [(ngModel)]="textValue">
+    <button id="msgbtn" (click)="Sendchatmessage()">發送</button>
+    <hr>
+    <!-- <input type="file" id="imgfile" multiple="multiple">
+    <button id="imgbtn" >發送圖片</button> -->
+  </div>
+</div>
