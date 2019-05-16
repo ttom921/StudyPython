@@ -12,6 +12,12 @@ export class SocketService {
   public InitSocket(ns_url: string) {
     this.socket = socketIo(ns_url);
   }
+  public disconnect(): void {
+    this.socket.disconnect();
+  }
+  public getNameSpace(): string {
+    return this.socket.nsp;
+  }
   public onEvent(event: Event): Observable<any> {
     return new Observable<Event>(observer => {
       this.socket.on(event, () => { observer.next() });
@@ -30,4 +36,22 @@ export class SocketService {
       });
     });
   }
+  public createNamespace(nsname: string) {
+    this.socket.emit("createNamespace", { name: nsname });
+  }
+  public OnUpdateNamespaceList(): Observable<any> {
+    return new Observable<any>(observable => {
+      this.socket.on("updateNamespaceList", (data: any) => observable.next(data));
+    });
+  }
+  // 加入選擇的namespace
+  public joinToNamespace(nsname: string): void {
+    this.socket.emit("JoinToApp", { namespace: nsname });
+  }
+  public OnJoinToApp(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on("JoinToApp", (data: any) => observer.next(data));
+    });
+  }
+
 }

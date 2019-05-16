@@ -1,3 +1,4 @@
 {
-    "python.venvPath": "D:\\Project\\github\\StudyPython\\pyvirenv\\pyenv37\\Scripts"
+    "python.venvPath": "D:\\Project\\github\\StudyPython\\pyvirenv\\pyenv37\\Scripts",
+    "python.pythonPath": "D:\\Project\\github\\StudyPython\\pyvirenv\\pyenv37\\Scripts\\python.exe"
 }
