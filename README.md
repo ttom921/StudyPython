@@ -5,6 +5,7 @@
 - Testflasksql 是有關python和flask的架設和CRUD資料庫mariadb
 - TestFlaskAngular 是Angular和Flask架構結合的測試
 - TestFlaskSocketIOchat是測試有關SocketIO
+- TestFlaskSocketIONs是測試有關動態的`namespace`
 
 詳細的資料放在網站
 
