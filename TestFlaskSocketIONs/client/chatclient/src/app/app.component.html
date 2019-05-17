@@ -1,3 +1,6 @@
-<app-room1></app-room1>
+<p>
+    不顯示只傳送: <input type="checkbox" id="myCheck" [(ngModel)]="myCheck" [value]="myCheck" (click)="CheckClick()" />
+</p>
+<app-room1 [isVisiableImg]="myCheck"></app-room1>
 
 <router-outlet></router-outlet>

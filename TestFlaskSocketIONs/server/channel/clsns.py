@@ -62,3 +62,12 @@ class MyCustomNamespace(Namespace):
         if namespaceToConnect != None:
             sendmsg = {"namespace": namespaceToConnect}
             emit('JoinToApp', sendmsg, json=True)
+
+    # 有關bytemessage
+    def on_bytemessage(self, data):
+        currentSocketId = request.sid
+        sckns = request.namespace
+        # fmt = "[myns ns=%s]<bytemessage>:%s" % (sckns, data)
+        # print(fmt)
+        # emit("chatmessage", data)
+        emit("bytemessage", data, broadcast=True, json=True)

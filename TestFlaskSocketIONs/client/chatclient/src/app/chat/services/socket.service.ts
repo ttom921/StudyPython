@@ -3,6 +3,7 @@ import * as socketIo from "socket.io-client";
 import { Observable, observable } from 'rxjs';
 import { Event } from "../model/event";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,5 +54,13 @@ export class SocketService {
       this.socket.on("JoinToApp", (data: any) => observer.next(data));
     });
   }
-
+  // bytemessage相關
+  public Sendbytemessage(data: any) {
+    this.socket.emit("bytemessage", data);
+  }
+  public Onbytemessage(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on("bytemessage", (data: any) => observer.next(data));
+    });
+  }
 }

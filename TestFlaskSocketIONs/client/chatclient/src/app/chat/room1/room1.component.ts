@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SocketService } from '../services/socket.service';
 import { Event } from "../model/event";
+import { ImagefileService } from 'src/app/services/imagefile.service';
 
 
 @Component({
@@ -9,8 +10,10 @@ import { Event } from "../model/event";
   styleUrls: ['./room1.component.scss']
 })
 export class Room1Component implements OnInit {
-  SERVER_URL = "http://localhost:5000";
-  constructor(private socketService: SocketService) { }
+
+  //SERVER_URL = "http://localhost:5000";
+  SERVER_URL = "http://172.18.2.24:5000";
+  constructor(private socketService: SocketService, private imagefileService: ImagefileService) { }
   textValue = "";
   messages: string[] = [];
 
@@ -19,6 +22,12 @@ export class Room1Component implements OnInit {
   namespacelst: string[] = [];
   seltextNamespace = "";
   curnamespace = "";
+  //
+  @ViewChild("photoImage") photoImage: ElementRef;
+
+  //
+  @Input('isVisiableImg') isVisiableImg: boolean;
+
   ngOnInit() {
     this.initIoConnection(this.SERVER_URL);
   }
@@ -58,6 +67,21 @@ export class Room1Component implements OnInit {
       this.initIoConnection(connecturl);
 
     });
+    // 收到bytemessage
+    this.socketService.Onbytemessage().subscribe((data) => {
+      //let fmtmsg = `[client ns:${this.curnamespace}]<bytemessage> data.bufdata=${data.bufdata}`;
+      let fmtmsg = `[client ns:${this.curnamespace}]<bytemessage> `;
+      console.log(fmtmsg);
+      if (this.isVisiableImg == false) {
+        let blob = new Blob([data.bufdata], { type: "image/jpeg" });
+        let urlCreator = window.URL;
+        this.photoImage.nativeElement.src = urlCreator.createObjectURL(blob)
+      }
+
+
+      data.bufdata = null;
+
+    });
   }
   public Sendchatmessage() {
     // let fmtmsg = `[client ns:${this.curnamespace}]<chatmessage>=${this.textValue}`
@@ -78,6 +102,55 @@ export class Room1Component implements OnInit {
     console.log(fmtmsg);
     this.socketService.joinToNamespace(this.seltextNamespace);
   }
+  // 發送圖片
+  public Upload(file: HTMLInputElement) {
+    //let fmtmsg = `[client ns:${this.curnamespace}]<JoinToApp>=${this.seltextNamespace}`
 
+    let fmtmsg = "send pic";
+    //console.log(fmtmsg);
+    if (file.value.length === 0) return;
+    //讀所有的圖檔
+    const uploadPromises = [];
+
+    const files: FileList = file.files;
+    let Bufferary = new ArrayBuffer(files.length);
+    for (let index = 0; index < files.length; index++) {
+      const element = files[index];
+      //fmtmsg = element.name;
+      //console.log(fmtmsg);
+      let uploadPromise = this.imagefileService.GetBufferFromFile(element);
+      uploadPromises.push(uploadPromise);
+    }
+
+    Promise.all(uploadPromises).then(result => {
+      for (let i = 0; i < files.length; i++) {
+        Bufferary[i] = result[i];
+        console.log(Bufferary[i]);
+      }
+      //this.socketService.Sendbytemessage({ "room": 'room1', "bufdata": Bufferary[0] });
+      //開始發射
+      let maximgnum = files.length;
+      let count = 0;
+      setInterval(() => {
+
+        this.socketService.Sendbytemessage({ "room": 'room1', "bufdata": Bufferary[count] });
+        count = (count + 1) % maximgnum;
+        //console.log(count);
+        // for (let i = 0; i < files.length; i++) {
+        //   // var file = files[i]
+        //   //console.log('發射:'+file.name )
+        //   //socket.emit('byte message', { image: true, buffer: Bufferary[i] });
+        //   this.socketService.Sendbytemessage({ "room": 'room1', "bufdata": Bufferary[i] });
+        // }
+      }, 100);
+    });
+
+
+
+
+  }
+  public CheckImg() {
+    console.log("isVisiableImg=" + this.isVisiableImg);
+  }
 
 }

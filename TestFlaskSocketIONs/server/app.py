@@ -5,7 +5,7 @@ from channel.server import channelsrv
 
 app = Flask(__name__)
 
-app.config['HOST'] = 'localhost'
+app.config['HOST'] = '0.0.0.0'
 app.config['PORT'] = 6000
 app.config["SECRET_KEY"] = "secret1"
 
