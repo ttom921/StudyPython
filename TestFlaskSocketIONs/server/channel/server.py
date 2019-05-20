@@ -18,7 +18,7 @@ class ChannelServer:
 
     def init_app(self, app):
         self.app = app
-        socketio.init_app(app)
+        socketio.init_app(app, cors_allowed_origins="*")
         self.createClassNamepace("", True)
         # self.createClassNamepace("/")
         # self.createClassNamepace("/bb")

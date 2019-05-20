@@ -1,10 +1,10 @@
 from flask import Flask
 
 from channel.server import channelsrv
-
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
-
+socketio = SocketIO(app)
 app.config['HOST'] = '0.0.0.0'
 app.config['PORT'] = 3000
 app.config["SECRET_KEY"] = "secret1"
@@ -49,5 +49,5 @@ def index():
 
 if __name__ == '__main__':
     app.debug = False  # vscode 才可以偵錯
-    app.run(host='0.0.0.0', port=3000)
-    #channelsrv.run(host='0.0.0.0', port=3000)
+    # app.run(host='0.0.0.0', port=3000)
+    socketio.run(app, host='0.0.0.0', port=3000)
