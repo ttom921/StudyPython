@@ -4,7 +4,7 @@ from channel.server import channelsrv
 from flask_socketio import SocketIO
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='gevent')
 app.config['HOST'] = '0.0.0.0'
 app.config['PORT'] = 3000
 app.config["SECRET_KEY"] = "secret1"

@@ -11,7 +11,9 @@ export class SocketService {
   private socket: socketIo;
   constructor() { }
   public InitSocket(ns_url: string) {
-    this.socket = socketIo(ns_url);
+    //const conn = socket(host, { upgrade: false, transports: ['websocket'] })
+    //this.socket = socketIo(ns_url);
+    this.socket = socketIo(ns_url, { upgrade: false, transports: ['websocket'] });
   }
   public disconnect(): void {
     this.socket.disconnect();
