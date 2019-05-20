@@ -6,7 +6,7 @@ from channel.server import channelsrv
 app = Flask(__name__)
 
 app.config['HOST'] = '0.0.0.0'
-app.config['PORT'] = 6000
+app.config['PORT'] = 3000
 app.config["SECRET_KEY"] = "secret1"
 
 channelsrv.init_app(app)
@@ -49,5 +49,5 @@ def index():
 
 if __name__ == '__main__':
     app.debug = False  # vscode 才可以偵錯
-    app.run(host='localhost', port=6000)
-    # socketio.run(host='localhost', port=5000)
+    app.run(host='0.0.0.0', port=3000)
+    #channelsrv.run(host='0.0.0.0', port=3000)

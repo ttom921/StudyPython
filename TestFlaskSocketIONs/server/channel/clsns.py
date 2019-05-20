@@ -70,4 +70,5 @@ class MyCustomNamespace(Namespace):
         # fmt = "[myns ns=%s]<bytemessage>:%s" % (sckns, data)
         # print(fmt)
         # emit("chatmessage", data)
-        emit("bytemessage", data, broadcast=True, json=True)
+        #emit("bytemessage", data, broadcast=True, json=True)
+        emit("bytemessage", data, broadcast=True)

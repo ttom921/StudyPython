@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { SocketService } from '../services/socket.service';
 import { Event } from "../model/event";
 import { ImagefileService } from 'src/app/services/imagefile.service';
-
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: 'app-room1',
@@ -11,8 +11,8 @@ import { ImagefileService } from 'src/app/services/imagefile.service';
 })
 export class Room1Component implements OnInit {
 
-  //SERVER_URL = "http://localhost:5000";
-  SERVER_URL = "http://172.18.2.24:5000";
+  //SERVER_URL = "http://localhost:3000";
+  //SERVER_URL = "http://172.18.2.7:3000";
   constructor(private socketService: SocketService, private imagefileService: ImagefileService) { }
   textValue = "";
   messages: string[] = [];
@@ -29,7 +29,7 @@ export class Room1Component implements OnInit {
   @Input('isVisiableImg') isVisiableImg: boolean;
 
   ngOnInit() {
-    this.initIoConnection(this.SERVER_URL);
+    this.initIoConnection(environment.SERVER_URL);
   }
   private initIoConnection(nsspace: string) {
     this.socketService.InitSocket(nsspace);
@@ -59,7 +59,7 @@ export class Room1Component implements OnInit {
 
     // 加入新的namespace
     this.socketService.OnJoinToApp().subscribe((data) => {
-      let connecturl = this.SERVER_URL + "/" + data.namespace;
+      let connecturl = environment.SERVER_URL + "/" + data.namespace;
       let fmtmsg = `[client ns:${this.curnamespace}]<JoinToApp> namespace=${connecturl}`;
       this.messages.push(fmtmsg);
       console.log(fmtmsg);
@@ -71,15 +71,15 @@ export class Room1Component implements OnInit {
     this.socketService.Onbytemessage().subscribe((data) => {
       //let fmtmsg = `[client ns:${this.curnamespace}]<bytemessage> data.bufdata=${data.bufdata}`;
       let fmtmsg = `[client ns:${this.curnamespace}]<bytemessage> `;
-      console.log(fmtmsg);
+      //console.log(fmtmsg);
       if (this.isVisiableImg == false) {
-        let blob = new Blob([data.bufdata], { type: "image/jpeg" });
+        let blob = new Blob([data], { type: "image/jpeg" });
         let urlCreator = window.URL;
         this.photoImage.nativeElement.src = urlCreator.createObjectURL(blob)
       }
 
 
-      data.bufdata = null;
+      data = null;
 
     });
   }
@@ -133,7 +133,7 @@ export class Room1Component implements OnInit {
       let count = 0;
       setInterval(() => {
 
-        this.socketService.Sendbytemessage({ "room": 'room1', "bufdata": Bufferary[count] });
+        this.socketService.Sendbytemessage(Bufferary[count]);
         count = (count + 1) % maximgnum;
         //console.log(count);
         // for (let i = 0; i < files.length; i++) {
@@ -142,7 +142,7 @@ export class Room1Component implements OnInit {
         //   //socket.emit('byte message', { image: true, buffer: Bufferary[i] });
         //   this.socketService.Sendbytemessage({ "room": 'room1', "bufdata": Bufferary[i] });
         // }
-      }, 100);
+      }, 66);
     });
 
 

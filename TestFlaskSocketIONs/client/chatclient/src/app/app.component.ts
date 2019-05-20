@@ -7,8 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chatclient';
-  myCheck: boolean = false;
-  public CheckClick() {
-    console.log("check click=" + this.myCheck);
-  }
+
+
 }

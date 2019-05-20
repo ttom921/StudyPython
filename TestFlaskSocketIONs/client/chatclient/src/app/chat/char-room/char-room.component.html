@@ -1,0 +1,15 @@
+<div>
+  <div class="imgshow">
+    <img id="photoImage" #photoImage class="clsimage" />
+  </div>
+  <ul id="messages">
+    <li *ngFor="let item of messages">{{item}}</li>
+  </ul>
+  <div id="inputdiv">
+    輸入:<input type="text" id="msginput" #textbox [(ngModel)]="textValue">
+    <button id="msgbtn" (click)="Sendchatmessage()">發送</button>
+  </div>
+  <!-- <div>
+    <button id="btnConn" (click)="btnConn()">連線</button>
+  </div> -->
+</div>

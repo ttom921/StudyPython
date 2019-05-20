@@ -23,6 +23,9 @@ class ChannelServer:
         # self.createClassNamepace("/")
         # self.createClassNamepace("/bb")
 
+    def run(self, host=None, port=None, **kwargs):
+        socketio(self.app, host=None, port=None, **kwargs)
+
     def getApp(self):
         return self.app
 
