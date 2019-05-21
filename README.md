@@ -6,6 +6,7 @@
 - TestFlaskAngular 是Angular和Flask架構結合的測試
 - TestFlaskSocketIOchat是測試有關SocketIO
 - TestFlaskSocketIONs是測試有關動態的`namespace`
+- TestVscodeDevug 是測試有關在vscode單步執行
 
 詳細的資料放在網站
 
