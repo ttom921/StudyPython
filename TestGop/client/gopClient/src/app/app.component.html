@@ -1,2 +1,33 @@
 <button mat-button> mat-button -> Hello world!!</button>
+<br>
 <button mat-raised-button color="primary">Hello world!!</button>
+<br>
+這是第一個ICON<i class="material-icons">chat</i>
+<br>
+使用MatIcon的語法<mat-icon>chat</mat-icon>
+<hr>
+<div>
+  這是一般的ICON顏色
+  <mat-icon>person</mat-icon>
+</div>
+<div>
+  這是加上primary顏色的ICON
+  <mat-icon color="primary">thumb_up</mat-icon>
+</div>
+<div>
+  這是加上accent顏色的ICON
+  <mat-icon color="accent">info</mat-icon>
+</div>
+<div>
+  這是加上warn顏色的ICON
+  <mat-icon color="warn">warning</mat-icon>
+</div>
+<hr>
+<h2>自行註冊SVG icon</h2>
+
+<div>
+  <mat-icon svgIcon="custom-svg:angular"></mat-icon>
+  <mat-icon svgIcon="custom-svg:angular" color="primary"></mat-icon>
+  <mat-icon svgIcon="custom-svg:angular" color="accent"></mat-icon>
+  <mat-icon svgIcon="custom-svg:angular" color="warn"></mat-icon>
+</div>
