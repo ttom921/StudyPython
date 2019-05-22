@@ -18,4 +18,10 @@ export class DashboardComponent implements OnInit {
       console.log(`選單狀態:${result}`)
     });
   }
+  opened() {
+    console.log("芝麻開門");
+  }
+  closed() {
+    console.log("芝麻關門");
+  }
 }
