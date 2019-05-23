@@ -1,3 +1,31 @@
 <p>
   py-manager works!
 </p>
+<div class="example-form-field">
+  <p>建立namspace</p>
+  <!-- <div>
+    <label>Created:</label>
+    <input type="text" [(ngModel)]="nameSpacestr" placeholder="foo" />
+  </div> -->
+  <mat-form-field>
+    <input matInput type="text" placeholder="請輸入NamSpace" [(ngModel)]="nameSpacestr">
+    <button mat-button *ngIf="nameSpacestr" matSuffix mat-icon-button aria-label="清除" (click)="nameSpacestr=''">
+      <mat-icon>close</mat-icon>
+    </button>
+
+
+  </mat-form-field>
+  <button *ngIf="nameSpacestr" mat-raised-button color="primary" (click)="createNameSpace()">建立</button>
+  <mat-divider></mat-divider>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let ns of namespacelst">
+
+      <p>{{ ns }}</p>
+      <button mat-icon-button style="position:absolute;right:0px;">
+        <mat-icon>info</mat-icon>
+      </button>
+
+
+    </mat-list-item>
+  </mat-nav-list>
+</div>

@@ -8,7 +8,8 @@ class MyCustomNamespace(Namespace):
 
     def on_connect(self):
         sckns = request.namespace
-        fmt = "[myns ns=%s]<connect>" % (sckns)
+        remotip = request.remote_addr
+        fmt = "[myns ns=%s]<connect> remote_addr=%s" % (sckns, remotip)
         print(fmt)
         self.sendUpdateNamespace()
     # 客戶disconnect的事件

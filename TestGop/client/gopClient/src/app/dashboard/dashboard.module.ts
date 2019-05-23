@@ -7,11 +7,13 @@ import { SharedMaterialModule } from '../shared-material/shared-material.module'
 import { PyManagerComponent } from './py-manager/py-manager.component';
 import { PySenderComponent } from './py-sender/py-sender.component';
 import { PyReciverComponent } from './py-reciver/py-reciver.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [NgMaterialComponent, PyManagerComponent, PySenderComponent, PyReciverComponent],
   imports: [
     CommonModule,
+    FormsModule,
     SharedMaterialModule,
     DashboardRoutingModule
   ]
