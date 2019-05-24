@@ -53,6 +53,20 @@ class MyCustomNamespace(Namespace):
         print("[myns ns=%s]<deleteNamespace> socket.id=%s nsname=%s" %
               (sckns, currentSocketId, data["name"]))
         self.ChatServer.deleteNamespace(data["name"])
+
+    def on_getnamespacelst(self, data):
+        currentSocketId = request.sid
+        sckns = request.namespace
+        print("[myns ns=%s]<getnamespacelst> socket.id=%s data=%s" %
+              (sckns, currentSocketId, data))
+        self.sendUpdateNamespace()
+
+    def on_getchannellst(self, data):
+        currentSocketId = request.sid
+        sckns = request.namespace
+        print("[myns ns=%s]<getchannellst> socket.id=%s data=%s" %
+              (sckns, currentSocketId, data))
+        self.sendUpdateChannel()
     # 傳送namespace列表
 
     def sendUpdateNamespace(self):
@@ -65,12 +79,14 @@ class MyCustomNamespace(Namespace):
         # emit('updateNamespaceList', senddata, broadcast=True, json=True)
     # 加入JoinToApp事件加入某個namespace
 
-    def on_JoinToApp(self, data):
-        namespaceToConnect = self.ChatServer.searchObjectOnArray(
-            data["namespace"])
-        if namespaceToConnect != None:
-            sendmsg = {"namespace": namespaceToConnect}
-            emit('JoinToApp', sendmsg, json=True)
+    def sendUpdateChannel(self):
+        self.ChatServer.sendUpdateChannel()
+    # def on_JoinToApp(self, data):
+    #     namespaceToConnect = self.ChatServer.searchObjectOnArray(
+    #         data["namespace"])
+    #     if namespaceToConnect != None:
+    #         sendmsg = {"namespace": namespaceToConnect}
+    #         emit('JoinToApp', sendmsg, json=True)
 
     # 加入到指定的namespace
 
@@ -84,6 +100,7 @@ class MyCustomNamespace(Namespace):
             sckns = request.namespace
             print("[myns ns=%s]<joinNamespace> socket.id=%s nsname=%s" %
                   (sckns, currentSocketId, namespaceToConnect))
+            self.ChatServer.sendUpdateChannel()
     # 有關bytemessage
 
     def on_bytemessage(self, data):

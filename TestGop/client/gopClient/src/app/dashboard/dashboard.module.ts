@@ -6,11 +6,12 @@ import { NgMaterialComponent } from './ng-material/ng-material.component';
 import { SharedMaterialModule } from '../shared-material/shared-material.module';
 import { PyManagerComponent } from './py-manager/py-manager.component';
 import { PySenderComponent } from './py-sender/py-sender.component';
-import { PyReciverComponent } from './py-reciver/py-reciver.component';
 import { FormsModule } from '@angular/forms';
+import { ChatLoddyComponent } from './chat-loddy/chat-loddy.component';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
 
 @NgModule({
-  declarations: [NgMaterialComponent, PyManagerComponent, PySenderComponent, PyReciverComponent],
+  declarations: [NgMaterialComponent, PyManagerComponent, PySenderComponent, ChatLoddyComponent, ChatRoomComponent],
   imports: [
     CommonModule,
     FormsModule,

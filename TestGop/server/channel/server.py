@@ -12,6 +12,8 @@ class ChannelServer:
     app = None
     namespace_queue = []
     CustomNamespace = []
+    channellst = ["channel1", "channel2", "channel3", "channel4",
+                  "channel5", "channel6", "channel7", "channel8"]
 
     def __init__(self):
         pass
@@ -63,6 +65,13 @@ class ChannelServer:
         print("[server]<updateNamespaceList> socket.id=%s result=%s" %
               (currentSocketId, senddata))
         emit('updateNamespaceList', senddata, broadcast=True, json=True)
+
+    def sendUpdateChannel(self):
+        currentSocketId = request.sid
+        senddata = {'result': self.channellst}
+        print("[server]<updateChannelList> socket.id=%s result=%s" %
+              (currentSocketId, senddata))
+        emit('updateChannelList', senddata, broadcast=True, json=True)
     # 檢查是否有namespace
 
     def searchObjectOnArray(self, namekey):

@@ -18,3 +18,15 @@ ng g s service\PySocketio
 ng g s service\SocketIoData
 ```
 
+加入`ChatLoddy`的元件
+
+```
+ng g c dashboard\ChatLoddy
+```
+
+加入聊天房間
+
+```
+ng g c dashboard\ChatRoom
+```
+
