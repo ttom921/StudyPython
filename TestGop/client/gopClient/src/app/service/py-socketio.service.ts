@@ -23,14 +23,14 @@ export class PySocketioService {
       this.Sendconnected();
     });
 
-    //收到namespace列表
-    this.OnupdateNamespaceList().subscribe((data) => {
-      let fmtmsg = `[client ns:${this.curnamespace}]<UpdateNamespaceList> namespacelst=${data.result}`;
-      console.log(fmtmsg);
-      //this.socketIoDataService.setNameSpacelst(data.result);
-      //this.namespacelst = data.result;
+    // //收到namespace列表
+    // this.OnupdateNamespaceList().subscribe((data) => {
+    //   let fmtmsg = `[client ns:${this.curnamespace}]<UpdateNamespaceList> namespacelst=${data.result}`;
+    //   console.log(fmtmsg);
+    //   //this.socketIoDataService.setNameSpacelst(data.result);
+    //   //this.namespacelst = data.result;
 
-    });
+    // });
 
   }
   // 
@@ -65,18 +65,23 @@ export class PySocketioService {
       this.socket.on("updateChannelList", (data) => { observer.next(data) });
     });
   }
-  public Onchatmessage(): Observable<string> {
-    return new Observable<string>(observer => {
+  public Onchatmessage(): Observable<any> {
+    return new Observable<any>(observer => {
       this.socket.on("chatmessage", (data) => {
         observer.next(data);
       });
     });
   }
   public OnjoinNamespace(): Observable<any> {
-    return new Observable<any>((observable) => {
+    return new Observable<any>((observer) => {
       this.socket.on("joinNamespace", (data) => {
-        observable.next(data);
+        observer.next(data);
       });
+    });
+  }
+  public Onjoin(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on("join", (data) => { observer.next(data) });
     });
   }
   //#endregion
@@ -91,6 +96,12 @@ export class PySocketioService {
   }
   public SendGetChannellst() {
     this.socket.emit("getchannellst", "取得頻道列表");
+  }
+  public Sendchatmessage(data: any) {
+    this.socket.emit("chatmessage", data);
+  }
+  public Sendjoin(room: string) {
+    this.socket.emit("join", room);
   }
   //#endregion
   //#region NameSpace相關

@@ -5,11 +5,12 @@ from flask_socketio import SocketIO, Namespace, send, emit
 from .clsns import MyCustomNamespace
 
 # from flask_socketio import Namespace, emit
-socketio = SocketIO()
+# socketio = SocketIO()
 
 
 class ChannelServer:
     app = None
+    socketio = None
     namespace_queue = []
     CustomNamespace = []
     channellst = ["channel1", "channel2", "channel3", "channel4",
@@ -18,21 +19,24 @@ class ChannelServer:
     def __init__(self):
         pass
 
-    def init_app(self, app):
+    def init_app(self, app, socketiosrv):
         self.app = app
-        socketio.init_app(app, cors_allowed_origins="*")
+        self.socketio = socketiosrv
+        ##print("init_app->socketio id="+str(id(self.socketio)))
+        ##socketio.init_app(app, cors_allowed_origins="*")
         self.createNamespace("", True)
         # self.__createClassNamepace("", True)
         # self.createClassNamepace("/")
         # self.createClassNamepace("/bb")
 
-    def run(self, host=None, port=None, **kwargs):
-        socketio(self.app, host=None, port=None, **kwargs)
+    # def run(self, host=None, port=None, **kwargs):
+    #     socketio(self.app, host=None, port=None, **kwargs)
 
     def getApp(self):
         return self.app
 
     def createNamespace(self, data, startup=False):
+        #print("createNamespace->socketio id="+str(id(self.socketio)))
         if startup == False:
             currentSocketId = request.sid
             print("[server]<createNamespace> socket.id=%s nsname=%s" %
@@ -85,8 +89,11 @@ class ChannelServer:
         myclsns = MyCustomNamespace("/"+nsname)
         myclsns.ChatServer = self
         myclsns.ServerNameSpace = nsname
+        myclsns.socketio = self.socketio
         self.CustomNamespace.append(myclsns)
-        socketio.on_namespace(myclsns)
+        # socketio.on_namespace(myclsns)
+        self.socketio.on_namespace(myclsns)
+        #print("__createClassNamepace->socketio id="+str(id(self.socketio)))
         print("[server]<createClassNamepace> myclsns.ServerNameSpace=%s CustomNamespace=%s" %
               (myclsns.ServerNameSpace, self.CustomNamespace))
 

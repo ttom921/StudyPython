@@ -5,6 +5,7 @@ from flask_socketio import SocketIO, Namespace, send, emit
 class MyCustomNamespace(Namespace):
     ChatServer = None
     ServerNameSpace = None
+    socketio = None
     # 客戶connect的事件
 
     def on_connect(self):
@@ -33,11 +34,21 @@ class MyCustomNamespace(Namespace):
     def on_chatmessage(self, data):
         currentSocketId = request.sid
         sckns = request.namespace
-        fmt = "[myns ns=%s]<chatmessage>:%s" % (sckns, data)
+        msg = data["msg"]
+        curroom = data["channel"]
+        fmt = "[myns ns=%s]<chatmessage>:%s" % (sckns, msg)
         print(fmt)
-        # emit("chatmessage", data)
-        emit("chatmessage", data, broadcast=True)
-        # emit("chatmessage", data, broadcast=True, include_self=False)
+
+        # curroomdata = self.socketio.server.rooms(currentSocketId, sckns)
+        # fmt = "[myns ns=%s]<chatmessage>:currroom=%s" % (sckns, curroomdata)
+        # print(fmt)
+        # curroom = ""
+        # if len(curroomdata) > 1:
+        #     curroom = curroomdata[1]
+        emit("chatmessage", data, broadcast=True, room=curroom, namspace=sckns)
+        # # emit("chatmessage", data)
+        # emit("chatmessage", data, broadcast=True)
+        # # emit("chatmessage", data, broadcast=True, include_self=False)
     # 建立createNamespace的事件
 
     def on_createNamespace(self, data):
@@ -69,6 +80,21 @@ class MyCustomNamespace(Namespace):
         self.sendUpdateChannel()
     # 傳送namespace列表
 
+    # 加入到指定的namespace
+
+    def on_joinNamespace(self, data):
+        namespaceToConnect = self.ChatServer.searchObjectOnArray(
+            data["namespace"])
+        if namespaceToConnect != None:
+            sendmsg = {"namespace": namespaceToConnect}
+            emit('joinNamespace', sendmsg, json=True)
+            currentSocketId = request.sid
+            sckns = request.namespace
+            print("[myns ns=%s]<joinNamespace> socket.id=%s nsname=%s" %
+                  (sckns, currentSocketId, namespaceToConnect))
+            self.ChatServer.sendUpdateChannel()
+# -------------------------------------------------------
+
     def sendUpdateNamespace(self):
         self.ChatServer.sendUpdateNamespace()
         # currentSocketId = request.sid
@@ -87,20 +113,7 @@ class MyCustomNamespace(Namespace):
     #     if namespaceToConnect != None:
     #         sendmsg = {"namespace": namespaceToConnect}
     #         emit('JoinToApp', sendmsg, json=True)
-
-    # 加入到指定的namespace
-
-    def on_joinNamespace(self, data):
-        namespaceToConnect = self.ChatServer.searchObjectOnArray(
-            data["namespace"])
-        if namespaceToConnect != None:
-            sendmsg = {"namespace": namespaceToConnect}
-            emit('joinNamespace', sendmsg, json=True)
-            currentSocketId = request.sid
-            sckns = request.namespace
-            print("[myns ns=%s]<joinNamespace> socket.id=%s nsname=%s" %
-                  (sckns, currentSocketId, namespaceToConnect))
-            self.ChatServer.sendUpdateChannel()
+# -------------------------------------------------------
     # 有關bytemessage
 
     def on_bytemessage(self, data):
@@ -111,3 +124,23 @@ class MyCustomNamespace(Namespace):
         # emit("chatmessage", data)
         #emit("bytemessage", data, broadcast=True, json=True)
         emit("bytemessage", data, broadcast=True)
+# -------------------------------------------------------
+    # 有關加入頻首
+
+    def on_join(self, data):
+        # username = data['username']
+        channel = data['channel']
+        sid = request.sid
+        sckns = request.namespace
+        self.socketio.server.enter_room(sid, channel, namespace=sckns)
+        #self.socketio.join_room(channel, namespace=sckns)
+        emit("join", data, broadcast=True, room=channel, namespace=sckns)
+
+    def on_leave(self, data):
+        # username = data['username']
+        channel = data['channel']
+        sid = request.sid
+        sckns = request.namespace
+        #self.socketio.leave_room(channel, namespace=sckns)
+        self.socketio.server.leave_room(sid, channel, namespace=sckns)
+        emit("leave", data, broadcast=True, room=channel, namespace=sckns)

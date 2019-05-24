@@ -1,39 +1,39 @@
 <p>
   <mat-form-field>
     <mat-label>選擇頻道</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let channel of channels" [(value)]="selected">
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let channel of channels" value="{{channel}}">
         {{channel}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="primary" (click)="SendJoinChannel()">
     <mat-icon>thumb_up</mat-icon>
   </button>
 
 </p>
 <table border="1">
   <tr>
-    <td>1:<app-chat-room></app-chat-room>
+    <td>channel1<app-chat-room></app-chat-room>
     </td>
-    <td>6:
+    <td>channel2<app-chat-room></app-chat-room>
     </td>
-    <td>7
+    <td>channel3
     </td>
-    <td>8:
+    <td>channel4
     </td>
 
     　
   </tr>
 
   <tr>
-    <td>5:
+    <td>channel5
     </td>
-    <td>6:
+    <td>channel6
     </td>
-    <td>7
+    <td>channel7
     </td>
-    <td>8:
+    <td>channel8
     </td>
 
     　

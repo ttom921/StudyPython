@@ -7,11 +7,13 @@ app = Flask(__name__)
 # socketio = SocketIO(app, async_mode='gevent')
 socketio = SocketIO(
     app, binary=True, http_compression=False, async_mode='gevent')
+#print("socketio id="+str(id(socketio)))
 app.config['HOST'] = '0.0.0.0'
 app.config['PORT'] = 3000
 app.config["SECRET_KEY"] = "secret1"
 
-channelsrv.init_app(app)
+channelsrv.init_app(app, socketio)
+# channelsrv.socketio = socketio
 
 
 @app.route('/')
