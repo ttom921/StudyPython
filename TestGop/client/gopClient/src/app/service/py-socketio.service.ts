@@ -45,6 +45,13 @@ export class PySocketioService {
       });
     });
   }
+  public OnjoinNamespace(): Observable<any> {
+    return new Observable<any>((observable) => {
+      this.socket.on("joinNamespace", (data) => {
+        observable.next(data);
+      });
+    });
+  }
   //#endregion
 
   //#region 傳送訊息給server
@@ -58,8 +65,13 @@ export class PySocketioService {
   public createNamespace(nsname: string) {
     this.socket.emit("createNamespace", { name: nsname });
   }
+  // 刪除Namespace
   deleteNameSpace(nsname: string) {
     this.socket.emit("deleteNamespace", { name: nsname });
+  }
+  // 加入Namespace
+  joinNameSpace(nsname: string) {
+    this.socket.emit("joinNamespace", { namespace: nsname });
   }
   //#endregion
 

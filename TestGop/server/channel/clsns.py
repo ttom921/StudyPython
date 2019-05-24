@@ -72,7 +72,20 @@ class MyCustomNamespace(Namespace):
             sendmsg = {"namespace": namespaceToConnect}
             emit('JoinToApp', sendmsg, json=True)
 
+    # 加入到指定的namespace
+
+    def on_joinNamespace(self, data):
+        namespaceToConnect = self.ChatServer.searchObjectOnArray(
+            data["namespace"])
+        if namespaceToConnect != None:
+            sendmsg = {"namespace": namespaceToConnect}
+            emit('joinNamespace', sendmsg, json=True)
+            currentSocketId = request.sid
+            sckns = request.namespace
+            print("[myns ns=%s]<joinNamespace> socket.id=%s nsname=%s" %
+                  (sckns, currentSocketId, namespaceToConnect))
     # 有關bytemessage
+
     def on_bytemessage(self, data):
         currentSocketId = request.sid
         sckns = request.namespace

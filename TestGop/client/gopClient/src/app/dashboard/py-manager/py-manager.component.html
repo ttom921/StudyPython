@@ -21,9 +21,10 @@
     <mat-list-item *ngFor="let ns of namespacelst | slice:1">
 
       <p>{{ ns }}</p>
-      <button mat-icon-button (click)="deleteNameSpace(ns)">
+      <button mat-icon-button (click)="joinNameSpace(ns)">
         <mat-icon>add</mat-icon>
       </button>
+      <mat-divider></mat-divider>
       <button mat-icon-button style="position:absolute;right:0px;" (click)="deleteNameSpace(ns)">
         <mat-icon>close</mat-icon>
       </button>
