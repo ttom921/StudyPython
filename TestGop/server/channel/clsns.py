@@ -4,6 +4,7 @@ from flask_socketio import SocketIO, Namespace, send, emit
 
 class MyCustomNamespace(Namespace):
     ChatServer = None
+    ServerNameSpace = None
     # 客戶connect的事件
 
     def on_connect(self):
@@ -44,17 +45,24 @@ class MyCustomNamespace(Namespace):
         sckns = request.namespace
         print("[myns ns=%s]<createNamespace> socket.id=%s nsname=%s" %
               (sckns, currentSocketId, data["name"]))
-        self.ChatServer.createClassNamepace(data["name"])
+        self.ChatServer.createNamespace(data["name"])
 
+    def on_deleteNamespace(self, data):
+        currentSocketId = request.sid
+        sckns = request.namespace
+        print("[myns ns=%s]<deleteNamespace> socket.id=%s nsname=%s" %
+              (sckns, currentSocketId, data["name"]))
+        self.ChatServer.deleteNamespace(data["name"])
     # 傳送namespace列表
 
     def sendUpdateNamespace(self):
-        currentSocketId = request.sid
-        sckns = request.namespace
-        senddata = {'result': self.ChatServer.namespace_queue}
-        print("[myns ns=%s]<updateNamespaceList> socket.id=%s result=%s" %
-              (sckns, currentSocketId, senddata))
-        emit('updateNamespaceList', senddata, broadcast=True, json=True)
+        self.ChatServer.sendUpdateNamespace()
+        # currentSocketId = request.sid
+        # sckns = request.namespace
+        # senddata = {'result': self.ChatServer.namespace_queue}
+        # print("[myns ns=%s]<updateNamespaceList> socket.id=%s result=%s" %
+        #       (sckns, currentSocketId, senddata))
+        # emit('updateNamespaceList', senddata, broadcast=True, json=True)
     # 加入JoinToApp事件加入某個namespace
 
     def on_JoinToApp(self, data):

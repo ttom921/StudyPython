@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PySocketioService {
+
   private socket: socketIo;
   constructor() { }
   public InitSocket(ns_url: string) {
@@ -56,6 +57,9 @@ export class PySocketioService {
   //建立Namespace
   public createNamespace(nsname: string) {
     this.socket.emit("createNamespace", { name: nsname });
+  }
+  deleteNameSpace(nsname: string) {
+    this.socket.emit("deleteNamespace", { name: nsname });
   }
   //#endregion
 

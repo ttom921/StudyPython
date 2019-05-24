@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MatSidenav, MatDrawerToggleResult } from '@angular/material';
 import { PySocketioService } from '../service/py-socketio.service';
 import { environment } from 'src/environments/environment';
-import { SocketIoDataService } from '../service/socket-io-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +10,13 @@ import { SocketIoDataService } from '../service/socket-io-data.service';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-  // curnamespace = "";
+  curnamespace = "";
   // namespacelst: string[] = [];
-  constructor(private socketService: PySocketioService, private socketIoDataService: SocketIoDataService) { }
+  constructor(private socketService: PySocketioService) { }
 
   ngOnInit() {
+    console.log("DashboardComponent:ngOnInit");
+    this.initIoConnection(environment.SERVER_URL);
   }
   toggleSideNav(sideNav: MatSidenav) {
     sideNav.toggle().then((result: MatDrawerToggleResult) => {
@@ -31,31 +32,29 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initIoConnection(environment.SERVER_URL);
+
   }
   initIoConnection(nsspace: string) {
-    let curnamespace = null;
     this.socketService.InitSocket(nsspace);
     console.log("initIoConnection->" + nsspace);
     this.socketService.Onconnect().subscribe(() => {
-      curnamespace = this.socketService.getNameSpace();
-      this.socketIoDataService.setCurrentNameSpace(curnamespace);
-      let fmtmsg = `[client ns:${curnamespace} ]connedted`;
+      this.curnamespace = this.socketService.getNameSpace();
+      let fmtmsg = `[client ns:${this.curnamespace} ]connedted`;
       console.log(fmtmsg);
       this.socketService.Sendconnected();
     });
 
-    this.socketService.Ondisconnect().subscribe(() => {
-      //this.socketIoDataService.setCurrentNameSpace(this.socketService.getNameSpace());
-      let fmtmsg = `[client ns:${curnamespace} ]disconnedted`;
-      console.log(fmtmsg);
-    });
+    // this.socketService.Ondisconnect().subscribe(() => {
+    //   //this.socketIoDataService.setCurrentNameSpace(this.socketService.getNameSpace());
+    //   let fmtmsg = `[client ns:${curnamespace} ]disconnedted`;
+    //   console.log(fmtmsg);
+    // });
 
     //收到namespace列表
     this.socketService.OnupdateNamespaceList().subscribe((data) => {
-      let fmtmsg = `[client ns:${curnamespace}]<UpdateNamespaceList> namespacelst=${data.result}`;
+      let fmtmsg = `[client ns:${this.curnamespace}]<UpdateNamespaceList> namespacelst=${data.result}`;
       console.log(fmtmsg);
-      this.socketIoDataService.setNameSpacelst(data.result);
+      //this.socketIoDataService.setNameSpacelst(data.result);
       //this.namespacelst = data.result;
 
     });

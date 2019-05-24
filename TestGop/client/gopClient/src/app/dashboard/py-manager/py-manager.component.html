@@ -18,11 +18,14 @@
   <button *ngIf="nameSpacestr" mat-raised-button color="primary" (click)="createNameSpace()">建立</button>
   <mat-divider></mat-divider>
   <mat-nav-list>
-    <mat-list-item *ngFor="let ns of namespacelst">
+    <mat-list-item *ngFor="let ns of namespacelst | slice:1">
 
       <p>{{ ns }}</p>
-      <button mat-icon-button style="position:absolute;right:0px;">
-        <mat-icon>info</mat-icon>
+      <button mat-icon-button (click)="deleteNameSpace(ns)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button style="position:absolute;right:0px;" (click)="deleteNameSpace(ns)">
+        <mat-icon>close</mat-icon>
       </button>
 
 
