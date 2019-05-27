@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PySenderComponent } from './py-sender.component';
+import { PySenderLobbyComponent } from './py-sender-lobby.component';
 
-describe('PySenderComponent', () => {
-  let component: PySenderComponent;
-  let fixture: ComponentFixture<PySenderComponent>;
+describe('PySenderLobbyComponent', () => {
+  let component: PySenderLobbyComponent;
+  let fixture: ComponentFixture<PySenderLobbyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PySenderComponent ]
+      declarations: [ PySenderLobbyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PySenderComponent);
+    fixture = TestBed.createComponent(PySenderLobbyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

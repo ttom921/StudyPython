@@ -30,3 +30,21 @@ ng g c dashboard\ChatLoddy
 ng g c dashboard\ChatRoom
 ```
 
+加人PySenderLobby
+
+```
+ng g c dashboard\PySenderLobby
+```
+
+加入讀圖檔的服務
+
+```
+ng g s service\ImageFile
+```
+
+加入SendBufRoom
+
+```
+ng g c dashboard\SendBufRoom
+```
+

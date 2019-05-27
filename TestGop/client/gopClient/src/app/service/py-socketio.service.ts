@@ -119,6 +119,14 @@ export class PySocketioService {
   }
   //#endregion
 
-
-
+  //#region bytemessage相關
+  public Sendbytemessage(data: any) {
+    this.socket.emit("bytemessage", data);
+  }
+  public Onbytemessage(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on("bytemessage", (data: any) => observer.next(data));
+    });
+  }
+  //#endregion
 }
