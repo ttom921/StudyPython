@@ -95,7 +95,7 @@ export class SendBufRoomComponent implements OnInit, AfterViewInit {
         this.socketService.Sendbytemessage({ "channel": this.selected, "bufdata": Bufferary[count] });
         count = (count + 1) % maximgnum;
         console.log(count);
-      }, 100);
+      }, 66);
 
     });
 
