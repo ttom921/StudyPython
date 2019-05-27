@@ -100,8 +100,8 @@ export class PySocketioService {
   public Sendchatmessage(data: any) {
     this.socket.emit("chatmessage", data);
   }
-  public Sendjoin(room: string) {
-    this.socket.emit("join", room);
+  public Sendjoin(data: any) {
+    this.socket.emit("join", data);
   }
   //#endregion
   //#region NameSpace相關

@@ -36,7 +36,8 @@ class MyCustomNamespace(Namespace):
         sckns = request.namespace
         msg = data["msg"]
         curroom = data["channel"]
-        fmt = "[myns ns=%s]<chatmessage>:%s" % (sckns, msg)
+        fmt = "[myns ns=%s]<chatmessage>:curroom=%s msg:%s" % (
+            sckns, curroom, msg)
         print(fmt)
 
         # curroomdata = self.socketio.server.rooms(currentSocketId, sckns)
@@ -135,6 +136,8 @@ class MyCustomNamespace(Namespace):
         self.socketio.server.enter_room(sid, channel, namespace=sckns)
         #self.socketio.join_room(channel, namespace=sckns)
         emit("join", data, broadcast=True, room=channel, namespace=sckns)
+        fmt = "[myns ns=%s]<join>:channel=%s" % (sckns, channel)
+        print(fmt)
 
     def on_leave(self, data):
         # username = data['username']
