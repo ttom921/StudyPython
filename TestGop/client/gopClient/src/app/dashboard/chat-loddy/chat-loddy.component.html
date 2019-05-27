@@ -1,39 +1,35 @@
-<p>
-  <mat-form-field>
-    <mat-label>選擇頻道</mat-label>
-    <mat-select [(value)]="selected">
-      <mat-option *ngFor="let channel of channels" value="{{channel}}">
-        {{channel}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="SendJoinChannel()">
-    <mat-icon>thumb_up</mat-icon>
-  </button>
-
-</p>
+<div>
+  <h3>目前namespace->{{curnamespace}}</h3>
+</div>
 <table border="1">
   <tr>
-    <td>channel1<app-chat-room></app-chat-room>
+    <td>頻道<app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel2<app-chat-room></app-chat-room>
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel3
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel4
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
 
     　
   </tr>
 
   <tr>
-    <td>channel5
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel6
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel7
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
-    <td>channel8
+    <td>頻道
+      <app-chat-room [socketiourl]="curnamespace"></app-chat-room>
     </td>
 
     　

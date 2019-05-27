@@ -133,11 +133,33 @@ class MyCustomNamespace(Namespace):
         channel = data['channel']
         sid = request.sid
         sckns = request.namespace
+        # 取得有加入的房間
+        rooms = self.__getjoinrooms(sid, sckns)
+        fmt = "[myns ns=%s]__getjoinrooms:rooms=%s" % (sckns, rooms)
+        print(fmt)
+        # 移除所有房間
+        for x in rooms:
+            self.__leaveroom(sid, sckns, x)
+
         self.socketio.server.enter_room(sid, channel, namespace=sckns)
+        # 顯示目前加入的房間
+        rooms = self.socketio.server.rooms(sid, sckns)
+        fmt = "[myns ns=%s]<join>:rooms=%s" % (sckns, rooms)
+        print(fmt)
         #self.socketio.join_room(channel, namespace=sckns)
         emit("join", data, broadcast=True, room=channel, namespace=sckns)
         fmt = "[myns ns=%s]<join>:channel=%s" % (sckns, channel)
         print(fmt)
+
+    def __getjoinrooms(self, sid, sckns):
+        rooms = self.socketio.server.rooms(sid, sckns)
+        joinrooms = [x for x in rooms if x != sid]
+        return joinrooms
+
+    def __leaveroom(self, sid, sckns, channel):
+        data = {channel: channel}
+        self.socketio.server.leave_room(sid, channel, namespace=sckns)
+        emit("leave", data, broadcast=True, room=channel, namespace=sckns)
 
     def on_leave(self, data):
         # username = data['username']
