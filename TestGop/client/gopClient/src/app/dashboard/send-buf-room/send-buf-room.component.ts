@@ -22,8 +22,8 @@ export class SendBufRoomComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // 切換到指定的namespace
-    let myurl = this.socketiourl === "/" ? "" : "/" + this.socketiourl;
-    let connecturl = environment.SERVER_URL;// + "/" + this.socketiourl;
+    let myurl = this.socketiourl === "/" ? "" : this.socketiourl;
+    let connecturl = environment.SERVER_URL + myurl;
     this.socketService.initIoConnection(connecturl);
 
     this.curnamespace = this.socketService.getNameSpace();
@@ -84,7 +84,7 @@ export class SendBufRoomComponent implements OnInit, AfterViewInit {
     Promise.all(uploadPromises).then(result => {
       for (let i = 0; i < files.length; i++) {
         Bufferary[i] = result[i];
-        console.log(Bufferary[i]);
+        //console.log(Bufferary[i]);
       }
 
       //this.socketService.Sendbytemessage({ "channel": this.selected, "bufdata": Bufferary[0] });
@@ -94,7 +94,7 @@ export class SendBufRoomComponent implements OnInit, AfterViewInit {
       setInterval(() => {
         this.socketService.Sendbytemessage({ "channel": this.selected, "bufdata": Bufferary[count] });
         count = (count + 1) % maximgnum;
-        console.log(count);
+        //console.log(count);
       }, 66);
 
     });
