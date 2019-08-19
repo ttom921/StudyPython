@@ -10,11 +10,11 @@ class User(db.Model):
     username = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
-    def __init__(self, name, username, password):
+    def __init__(self, name, username, password, bind=None):
+        self.__bind_key__ = bind
         self.name = name
         self.username = username
         self.password = hashlib.sha1(password).hexdigest()
 
     def __repr__(self):
         return "User('{}','{}','{}')".format(self.name, self.username, self.password)
-

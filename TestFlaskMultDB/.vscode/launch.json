@@ -10,7 +10,7 @@
             "pythonPath": "D:/Project/github/StudyPython/pyvirenv/pyenv37/Scripts/python.exe",
             "env": {
                 // 入口文件
-                "FLASK_APP": "run.py"
+                "FLASK_APP": "Testssqlite.py"
             },
             "args": [
                 "run",
