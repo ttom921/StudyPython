@@ -80,10 +80,14 @@ def delete():
         # 取得使用那一個資料庫
         bindkey = request.form.get("dbkey")
         session = dbmgr.getSession(bindkey)
-        id = request.form.get("id")
-        row = session.query(User).filter_by(id=id).first()
-        session.delete(row)
-        session.commit()
+        print("{} (id={})".format(session, id(session)))
+        uid = request.form.get("id")
+        row = session.query(User).filter_by(id=uid).first()
+        if row:
+            User.delete(row, session)
+            # session.delete(row)
+            # session.commit()
+
     except Exception as e:
         print("刪除資料失敗")
         print(e)
