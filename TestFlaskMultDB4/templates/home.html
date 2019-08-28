@@ -1,0 +1,87 @@
+<html>
+
+<body>
+    <h2>預設的資料庫 </h2>
+    <form method="POST" action="/">
+        <input type="hidden" value="" name="dbkey">
+        Name:<br><input type="text" name="name" value=""><br>
+        UserName:<br><input type="text" name="username" value=""><br>
+        Password:<br><input type="password" name="password" value=""><br>
+        <input type="submit" value="增加">
+    </form>
+    <h3>資料列表</h3>
+    {% for user in users %}
+    <p>Name:{{user.name}}</p>
+    <form method="POST" action="./update">
+        <input type="hidden" value="" name="dbkey">
+        <input type="hidden" value="{{user.id}}" name="id">
+        UserName:
+        <input type="text" value="{{user.username}}" name="newusername">
+        <input type="submit" value="Update">
+    </form>
+    <form method="POST" action="./delete">
+        <input type="hidden" value="" name="dbkey">
+        <input type="hidden" value="{{user.id}}" name="id">
+        <input type="submit" value="刪除">
+    </form>
+    {% endfor %}
+    <hr>
+    <h2>dbasa的資料庫 </h2>
+    <form method="POST" action="/">
+        <input type="hidden" value="asa" name="dbkey">
+        Name:<br><input type="text" name="name" value=""><br>
+        UserName:<br><input type="text" name="username" value=""><br>
+        Password:<br><input type="password" name="password" value=""><br>
+        <input type="submit" value="增加">
+    </form>
+    <h3>資料列表</h3>
+    {% for user in asausers %}
+    <p>Name:{{user.name}}</p>
+    <span>
+        <form method="POST" action="./update">
+            <input type="hidden" value="asa" name="dbkey">
+            <input type="hidden" value="{{user.id}}" name="id">
+            UserName:
+            <input type="text" value="{{user.username}}" name="newusername">
+            <input type="submit" value="Update">
+        </form>
+        <form method="POST" action="./delete">
+            <input type="hidden" value="asa" name="dbkey">
+            <input type="hidden" value="{{user.id}}" name="id">
+            <input type="submit" value="刪除">
+        </form>
+    </span>
+
+    {% endfor %}
+    <hr>
+    <h2>dbups的資料庫 </h2>
+    <form method="POST" action="/">
+        <input type="hidden" value="ups" name="dbkey">
+        Name:<br><input type="text" name="name" value=""><br>
+        UserName:<br><input type="text" name="username" value=""><br>
+        Password:<br><input type="password" name="password" value=""><br>
+        <input type="submit" value="增加">
+    </form>
+    <h3>資料列表</h3>
+    {% for user in upsusers %}
+    <p>Name:{{user.name}}</p>
+    <span>
+        <form method="POST" action="./update">
+            <input type="hidden" value="ups" name="dbkey">
+            <input type="hidden" value="{{user.id}}" name="id">
+            UserName:
+            <input type="text" value="{{user.username}}" name="newusername">
+            <input type="submit" value="Update">
+        </form>
+        <form method="POST" action="./delete">
+            <input type="hidden" value="ups" name="dbkey">
+            <input type="hidden" value="{{user.id}}" name="id">
+            <input type="submit" value="刪除">
+        </form>
+    </span>
+
+    {% endfor %}
+
+</body>
+
+</html>
