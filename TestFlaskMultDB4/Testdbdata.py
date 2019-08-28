@@ -3,21 +3,13 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask import redirect
 from database.models import User
-# from database.multidbmanager import db, dbmgr
-from database.dyndbmanager import DynDBmgr
+from database.dyndbmanager import db, dbmgr
 
 app = Flask(__name__)
 
 # 資料庫設定
-DynDBmgr.AddDBUrl("default", 'mysql://root:12345678@localhost:3306/dbhisharp')
-DynDBmgr.AddDBUrl("asa", 'mysql://root:12345678@localhost:33306/dbasa')
-DynDBmgr.AddDBUrl("ups", 'mysql://root:12345678@localhost:33307/dbups')
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12345678@localhost:3306/dbhisharp'
-# app.config["SQLALCHEMY_BINDS"] = {
-#     'asa': 'mysql://root:12345678@localhost:33306/dbasa',
-#     'ups': 'mysql://root:12345678@localhost:33307/dbups'
-# }
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12345678@localhost:3306/dbhisharp'
+app.config["SQLALCHEMY_BINDS"] = {}
 
 # 設置每次請求當結束後會自動提交數據庫中的改動
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = False
@@ -25,27 +17,40 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # 查詢時會顯示原始SQL語句
 app.config['SQLALCHEMY_ECHO'] = True
-# db.init_app(app)
+db.init_app(app)
 
+# 動態加入資料庫
+with app.app_context():
+    dbmgr.AddDBUrl("asa", 'mysql://root:12345678@localhost:33306/dbasa')
+    dbmgr.AddDBUrl("ups", 'mysql://root:12345678@localhost:33307/dbups')
 
 # 增加
+
+
 def TestAddDBdata(dbkey=""):
-    bindkey = dbkey
-    session = DynDBmgr.getSession(bindkey)
+    bindkey = None
+    if dbkey != '':
+        bindkey = dbkey
+    session = dbmgr.getSession(bindkey)
     for idx in range(1, 10):
         name = dbkey+"user"+str(idx)
         username = dbkey+"username"+str(idx)
         password = "password_"+str(idx)
-        myuser = User(name, username, password.encode('utf-8'))
-        print(myuser)
-        session.add(myuser)
+        myuser = User(name, username, password.encode('utf-8'), bindkey)
+        # 檢查是否有重覆的資料
+        row = User.findByName(name, bindkey)
+        if not row:
+            print(myuser)
+            session.add(myuser)
     session.commit()
 
 
 # 刪除
 def TestDelDBdata(dbkey=""):
-    bindkey = dbkey
-    session = DynDBmgr.getSession(bindkey)
+    bindkey = None
+    if dbkey != '':
+        bindkey = dbkey
+    session = dbmgr.getSession(bindkey)
     for idx in range(1, 10):
         name = dbkey+"user"+str(idx)
         row = session.query(User).filter_by(name=name).first()
@@ -56,8 +61,10 @@ def TestDelDBdata(dbkey=""):
 
 # 查詢
 def TestFindDBdata(dbkey=""):
-    bindkey = dbkey
-    session = DynDBmgr.getSession(bindkey)
+    bindkey = None
+    if dbkey != '':
+        bindkey = dbkey
+    session = dbmgr.getSession(bindkey)
     for idx in range(1, 10):
         name = dbkey+"user"+str(idx)
         row = session.query(User).filter_by(name=name).first()
@@ -67,8 +74,10 @@ def TestFindDBdata(dbkey=""):
 
 # 修改
 def TestModDBdata(dbkey=""):
-    bindkey = dbkey
-    session = DynDBmgr.getSession(bindkey)
+    bindkey = None
+    if dbkey != '':
+        bindkey = dbkey
+    session = dbmgr.getSession(bindkey)
     for idx in range(1, 10):
         name = dbkey+"user"+str(idx)
         row = session.query(User).filter_by(name=name).first()
@@ -80,9 +89,8 @@ def TestModDBdata(dbkey=""):
 
 if __name__ == "__main__":
     try:
-        # TestAddDBdata("asa")
         with app.app_context():
-            # 增
+            # 增加
             print("增加資料----------------")
             TestAddDBdata()
             TestAddDBdata("asa")
