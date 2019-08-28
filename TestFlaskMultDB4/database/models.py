@@ -18,10 +18,11 @@ class User(db.Model):
     def __repr__(self):
         return "User('{}','{}','{}')".format(self.name, self.username, self.password)
 
-    # def findByName(name, dbname):
-    #     session = dbmgr.getSession(dbname)
-    #     row = session.query(User).filter_by(name=name).first()
-    #     return row
+    def findByName(name, dbname):
+        session = dbmgr.getSession(dbname)
+        print("查詢:{} (id={})".format(session, id(session)))
+        row = session.query(User).filter_by(name=name).first()
+        return row
 
     # def getAll(dbname=None):
     #     session = dbmgr.getSession(dbname)
