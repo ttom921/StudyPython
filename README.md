@@ -5,6 +5,9 @@
 - Testflasksql 是有關python和flask的架設和CRUD資料庫mariadb
 - TestFlaskAngular 是Angular和Flask架構結合的測試
 - TestFlaskMultDB 是測試有關多個資料庫的使用
+- TestFlaskMultDB2 是測試有關靜態連結多個資料庫的使用
+- TestFlaskMultDB3 是測試有關動態連結(使用sqlalchemy)多個資料庫的使用
+- TestFlaskMultDB3 是測試有關動態連結(使用flask_sqlalchemy)多個資料庫的使用
 - TestFlaskSocketIOchat是測試有關SocketIO
 - TestFlaskSocketIONs是測試有關動態的`namespace`
 - TestFlasksql是測試和mariadb的CRUD
