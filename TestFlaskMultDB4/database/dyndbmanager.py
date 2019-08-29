@@ -22,7 +22,11 @@ class DynDBManager():
         print(current_app.config['SQLALCHEMY_BINDS'])
 
     def getSession(self, dbname=None):
-        db_name = dbname
+        # 檢查那一個資料庫
+        db_name = None
+        if dbname in current_app.config['SQLALCHEMY_BINDS']:
+            db_name = dbname
+
         # 檢查是否是同一個session
         if self.session:
             if self.session.name == db_name:

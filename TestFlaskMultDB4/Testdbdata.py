@@ -105,7 +105,7 @@ if __name__ == "__main__":
             TestFindDBdata()
             TestFindDBdata("asa")
             TestFindDBdata("ups")
-            # # 刪
+            # 刪
             # print("刪除資料----------------")
             TestDelDBdata()
             TestDelDBdata("asa")

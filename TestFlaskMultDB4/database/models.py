@@ -20,15 +20,16 @@ class User(db.Model):
 
     def findByName(name, dbname):
         session = dbmgr.getSession(dbname)
-        print("查詢:{} (id={})".format(session, id(session)))
+        print("findByName:{} (id={})".format(session, id(session)))
         row = session.query(User).filter_by(name=name).first()
         return row
 
-    # def getAll(dbname=None):
-    #     session = dbmgr.getSession(dbname)
-    #     return session.query(User).all()
+    def getAll(dbname=None):
+        session = dbmgr.getSession(dbname)
+        return session.query(User).all()
 
-    # def delete(row, session):
-    #     print("delete{} (id={})".format(session, id(session)))
-    #     session.delete(row)
-    #     session.commit()
+    def delete(row, dbname=None):
+        session = dbmgr.getSession(dbname)
+        print("delete{} (id={})".format(session, id(session)))
+        session.delete(row)
+        session.commit()

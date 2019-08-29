@@ -27,25 +27,62 @@ with app.app_context():
     # db.get_binds()
 
 
-@app.route("/", methods=["GET"])
-def home():
-    dbkey = None
-    bindkey = dbkey
-    dbkey = ""
-    session = dbmgr.getSession(bindkey)
-    print("新增:{} (id={})".format(session, id(session)))
-    for idx in range(1, 10):
-        name = dbkey+"user"+str(idx)
-        username = dbkey+"username"+str(idx)
-        password = "password_"+str(idx)
-        myuser = User(name, username, password.encode('utf-8'), bindkey)
-        # 檢查是否有重覆的資料
-        row = User.findByName(name, bindkey)
-        if not row:
-            print(myuser)
-            session.add(myuser)
+def checkdbname(dbname=None):
+    if dbname == "":
+        return None
+    else:
+        return dbname
 
-    session.commit()
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    # 取得使用那一個資料庫
+    bindkey = checkdbname(request.form.get("dbkey"))
+    if request.form:
+        try:
+            session = dbmgr.getSession(bindkey)
+            print("新增:{} (id={})".format(session, id(session)))
+            name = request.form.get("name")
+            username = request.form.get("username")
+            password = request.form.get("password")
+            # 檢查是否有重覆的資料
+            row = User.findByName(name, bindkey)
+            if not row:
+                myuser = User(name, username, password.encode('utf-8'))
+                print(myuser)
+                session.add(myuser)
+                session.commit()
+        except Exception as e:
+            print("加入資料失敗")
+            print(e)
+    # 取得各個列表
+    # 預設列表
+    users = None
+    users = User.getAll()
+    # asa列表
+    asausers = None
+    asausers = User.getAll("asa")
+    # ups 列表
+    upsusers = None
+    upsusers = User.getAll("ups")
+    return render_template("home.html", users=users, asausers=asausers, upsusers=upsusers)
+    # dbkey = None
+    # bindkey = dbkey
+    # dbkey = ""
+    # session = dbmgr.getSession(bindkey)
+    # print("新增:{} (id={})".format(session, id(session)))
+    # for idx in range(1, 10):
+    #     name = dbkey+"user"+str(idx)
+    #     username = dbkey+"username"+str(idx)
+    #     password = "password_"+str(idx)
+    #     myuser = User(name, username, password.encode('utf-8'), bindkey)
+    #     # 檢查是否有重覆的資料
+    #     row = User.findByName(name, bindkey)
+    #     if not row:
+    #         print(myuser)
+    #         session.add(myuser)
+
+    # session.commit()
 
     # #
     # dbkey = "asa"
@@ -88,7 +125,46 @@ def home():
     # dbmgr.getSession("ups")
 
     # print(dbmgr)
-    return "OK"
+    # return "OK"
+# 更新資料
+@app.route("/update", methods=["POST"])
+def update():
+
+    try:
+        # 取得使用那一個資料庫
+        bindkey = checkdbname(request.form.get("dbkey"))
+        session = dbmgr.getSession(bindkey)
+        print("修改:{} (id={})".format(session, id(session)))
+        uid = request.form.get("id")
+        newusername = request.form.get("newusername")
+        row = session.query(User).filter_by(id=uid).first()
+        if row:
+            row.username = newusername
+            session.commit()
+    except Exception as e:
+        print("更新資料失敗")
+        print(e)
+    return redirect("/")
+
+# 刪除
+@app.route("/delete", methods=["POST"])
+def delete():
+    try:
+        # 取得使用那一個資料庫
+        bindkey = checkdbname(request.form.get("dbkey"))
+        session = dbmgr.getSession(bindkey)
+        print("刪除:{} (id={})".format(session, id(session)))
+        uid = request.form.get("id")
+        row = session.query(User).filter_by(id=uid).first()
+        if row:
+            User.delete(row, bindkey)
+            # session.delete(row)
+            # session.commit()
+
+    except Exception as e:
+        print("刪除資料失敗")
+        print(e)
+    return redirect("/")
 
 
 if __name__ == "__main__":
