@@ -66,66 +66,7 @@ def home():
     upsusers = None
     upsusers = User.getAll("ups")
     return render_template("home.html", users=users, asausers=asausers, upsusers=upsusers)
-    # dbkey = None
-    # bindkey = dbkey
-    # dbkey = ""
-    # session = dbmgr.getSession(bindkey)
-    # print("新增:{} (id={})".format(session, id(session)))
-    # for idx in range(1, 10):
-    #     name = dbkey+"user"+str(idx)
-    #     username = dbkey+"username"+str(idx)
-    #     password = "password_"+str(idx)
-    #     myuser = User(name, username, password.encode('utf-8'), bindkey)
-    #     # 檢查是否有重覆的資料
-    #     row = User.findByName(name, bindkey)
-    #     if not row:
-    #         print(myuser)
-    #         session.add(myuser)
 
-    # session.commit()
-
-    # #
-    # dbkey = "asa"
-    # bindkey = dbkey
-    # session = dbmgr.getSession(bindkey)
-    # for idx in range(1, 10):
-    #     name = dbkey+"user"+str(idx)
-    #     username = dbkey+"username"+str(idx)
-    #     password = "password_"+str(idx)
-    #     myuser = User(name, username, password.encode('utf-8'), bindkey)
-    #     print(myuser)
-    #     session.add(myuser)
-    # session.commit()
-    # #
-    # dbkey = "ups"
-    # bindkey = dbkey
-    # session = dbmgr.getSession(bindkey)
-    # for idx in range(1, 10):
-    #     name = dbkey+"user"+str(idx)
-    #     username = dbkey+"username"+str(idx)
-    #     password = "password_"+str(idx)
-    #     myuser = User(name, username, password.encode('utf-8'), bindkey)
-    #     print(myuser)
-    #     session.add(myuser)
-    # session.commit()
-
-    # session = session_manager.session
-    # dbkey = "db1"
-    # for idx in range(1, 10):
-    #     name = dbkey+"user"+str(idx)
-    #     username = dbkey+"username"+str(idx)
-    #     password = "password_"+str(idx)
-    #     myuser = User(name, username, password.encode('utf-8'))
-    #     print(myuser)
-    #     session.add(myuser)
-    # session.commit()
-    # 單元測試
-    # dbmgr.getSession()
-    # dbmgr.getSession("asa")
-    # dbmgr.getSession("ups")
-
-    # print(dbmgr)
-    # return "OK"
 # 更新資料
 @app.route("/update", methods=["POST"])
 def update():
