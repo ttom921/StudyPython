@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbInfoService } from 'src/app/services/db-info.service';
 import { DataBaseInfo } from 'src/app/models/database';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-data-base-page',
@@ -19,7 +20,9 @@ export class DataBasePageComponent implements OnInit {
       dburl: 'dburl Subject 2',
     },
   ]
-  constructor(private dbinfoservice: DbInfoService) { }
+  constructor(
+    private dbinfoservice: DbInfoService,
+    private toasterService: ToasterService) { }
 
   ngOnInit() {
     this.getDBInfos();
@@ -33,21 +36,38 @@ export class DataBasePageComponent implements OnInit {
     // let databaseinof = new DataBaseInfo()
     // databaseinof.dbkey = this.dbkey;
     // databaseinof.dburl = this.dburl;
-    this.dbinfoservice.addDataBaseInfo(this.dbinof).subscribe((res) => {
-      console.log('onSubmit res------------------');
-      console.log(res);
-      this.getDBInfos();
+    this.dbinfoservice.addDataBaseInfo(this.dbinof).subscribe(
+      //   (res) => {
+      //   console.log('onSubmit res------------------');
+      //   console.log(res);
+      //   this.getDBInfos();
 
-    });
+      // }
+      data => {
+        console.log('success------------------' + data);
+        this.getDBInfos();
+        this.toasterService.showToaster(data.message);
+      },
+      error => {
+        console.log(error);
+        this.toasterService.showToaster(error.error.message);
+        //this.toasterService.showToaster(error.error.message);
+      }
+    );
   }
   getDBInfos() {
     //console.log('getDBInfos------------------');
     // //curdblist = [];
-    this.dbinfoservice.getDBInfos().subscribe((res) => {
-
-      console.log(res);
-      this.dblist = res;
-    });
+    this.dbinfoservice.getDBInfos().subscribe(
+      res => {
+        console.log(res);
+        this.dblist = res;
+      },
+      error => {
+        console.log(error);
+        this.toasterService.showToaster(error.statusText);
+      }
+    );
   }
 }
 

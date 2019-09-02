@@ -20,7 +20,13 @@ class DynDBManager():
         else:
             current_app.config['SQLALCHEMY_BINDS'][key] = dburl
         # 重新整理連結的資料庫
-        self.db.get_binds(self.app)
+        try:
+            currlist = self.db.get_binds(self.app)
+        except Exception as e:
+            print(e)
+            current_app.config['SQLALCHEMY_BINDS'].pop(key, None)
+            raise e
+
         print(current_app.config['SQLALCHEMY_BINDS'])
 
     def getSession(self, dbname=None):

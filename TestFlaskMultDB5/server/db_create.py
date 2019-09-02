@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask import redirect
 from database.models import User
-from database.multidbmanager import db
+from database.dyndbmanager import db
 
 app = Flask(__name__)
 

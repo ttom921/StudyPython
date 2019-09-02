@@ -4,10 +4,10 @@ from flask import redirect
 from database.models import User, UserSchema
 from database.dyndbmanager import db, ma, dbmgr
 from flask_cors import CORS
+from lib.retrespon import *
 
 app = Flask(__name__)
 CORS(app)
-# 資料庫設定
 # 資料庫設定
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12345678@localhost:3306/dbhisharp'
 app.config["SQLALCHEMY_BINDS"] = {}
@@ -21,11 +21,8 @@ app.config['SQLALCHEMY_ECHO'] = False
 
 db.init_app(app)
 ma.init_app(app)
-# # 動態加入資料庫
-# with app.app_context():
-#     dbmgr.AddDBUrl("asa", 'mysql://root:12345678@localhost:33306/dbasa')
-#     dbmgr.AddDBUrl("ups", 'mysql://root:12345678@localhost:33307/dbups')
-#     # db.get_binds()
+
+# 檢查資料庫是否合法
 
 
 def checkdbname(dbname=None):
@@ -46,33 +43,17 @@ def databaselist():
             fmt = '%s-> %s' % (dbkey, dburl)
             print(fmt)
             dbmgr.AddDBUrl(dbkey, dburl)
-            result = {'data': 'ok'}
-            return jsonify(result), 200
+            responseObject = resData("success", "資料庫連結加入成功")
+            return jsonify(responseObject), 200
         else:
             # 取得資料庫列表
             result = dbmgr.getAllDB()
             return jsonify(result)
-
-        # if request.json:
-        #     dbkey = request.json['dbkey']
-        #     dburl = request.json['dburl']
-        #     # dbkey = request.form.get("dbkey")
-        #     # dburl = request.form.get("dburl")
-        #     fmt = '%s-> %s' % (dbkey, dburl)
-        #     print(fmt)
-        #     dbmgr.AddDBUrl(dbkey, dburl)
-        #     result = {'data': 'ok'}
-        #     return jsonify(result), 200
-        # else:
-        #     # 取得資料庫列表
-        #     result = dbmgr.getAllDB()
-        #     return jsonify(result)
-
     except Exception as e:
         print("Failed to api databaseproc")
         print(e)
-        result = {'data': 'notok'}
-        return jsonify(result), 500
+        responseObject = resData("fail", "Failed to api databaseproc")
+        return jsonify(responseObject), 500
 
 # endpoint to create new user
 @app.route("/user", methods=["POST"])
