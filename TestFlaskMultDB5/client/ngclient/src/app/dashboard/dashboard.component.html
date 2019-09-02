@@ -1,0 +1,33 @@
+<mat-toolbar class="demo-app-header" color="primary">
+  <button mat-icon-button (click)="sideNav.toggle()">
+    <mat-icon>{{sideNav.opened ? 'close':'menu'}}</mat-icon>
+  </button>
+  <span>動態元件 demo</span>
+  <!-- 在這之後的都會被推到右邊去 -->
+  <span class="toolbar-seprator"></span>
+  <button mat-icon-button>
+    <mat-icon>message</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+</mat-toolbar>
+<mat-sidenav-container class="demo-app-container">
+  <mat-sidenav class="demo-app-sidenav" #sideNav mode="push">
+    <mat-nav-list>
+      <h3 matSubheader>使用者相關</h3>
+      <a [routerLink]="['/', 'dashboard', 'userpage']" mat-list-item>使用者</a>
+      <mat-divider></mat-divider>
+      <!-- 另外一組選單 -->
+      <h3 matSubheader>管理資料庫</h3>
+      <a [routerLink]="['/','dashboard','dbpage']" mat-list-item>資料庫</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- <div style="width: 100%;height: 20em;background-color: blueviolet">
+
+    </div> -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

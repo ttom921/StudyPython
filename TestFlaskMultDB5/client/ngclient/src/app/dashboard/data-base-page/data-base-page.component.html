@@ -1,0 +1,21 @@
+資料庫
+<form>
+  <mat-form-field>
+    <input matInput placeholder="資料庫主鍵" [(ngModel)]="dbinof.dbkey" name="dbkey" required>
+  </mat-form-field>
+  ｜
+  <mat-form-field style="width:400px !important">
+    <input matInput placeholder="資料庫連結" [(ngModel)]="dbinof.dburl" name="dburl" required>
+  </mat-form-field>
+  <button mat-raised-button (click)="onSubmit()" color="primary">加入</button>
+
+</form>
+
+<hr>
+資料庫列表
+<!-- three line list -->
+<mat-list>
+  <mat-list-item *ngFor="let dbitem of dblist">
+    <span matLine> {{dbitem.dbkey}} {{dbitem.dburl}} </span>
+  </mat-list-item>
+</mat-list>
