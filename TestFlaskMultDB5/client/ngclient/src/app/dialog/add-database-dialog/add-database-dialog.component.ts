@@ -17,23 +17,25 @@ export class AddDatabaseDialogComponent implements OnInit {
     private toasterService: ToasterService) { }
 
   ngOnInit() {
-    
+
   }
   //加入database的資料
   Add() {
     //console.log(this.dbinof);
     this.dbinfoservice.addDataBaseInfo(this.dbinof).subscribe(
       data => {
-        console.log('success------------------' + data);
+        //console.log('success------------------' + data);
         //this.getDBInfos();
         this.toasterService.showToaster(data.message);
+        this.dialogRef.close();
       },
       error => {
         console.log(error);
         this.toasterService.showToaster(error.error.message);
         //this.toasterService.showToaster(error.error.message);
+        this.dialogRef.close();
       }
     );
-    this.dialogRef.close();
+
   }
 }
