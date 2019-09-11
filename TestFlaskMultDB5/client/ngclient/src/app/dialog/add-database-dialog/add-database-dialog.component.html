@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>新增資料庫連紿</h2>
+<mat-dialog-content class="post-form">
+  <mat-form-field>
+    <input matInput placeholder="資料庫鍵值" [(ngModel)]="dbinof.dbkey" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="資料庫連結" [(ngModel)]="dbinof.dburl" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="Add()">加入</button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>

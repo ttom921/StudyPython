@@ -10,6 +10,8 @@
   <button mat-raised-button (click)="onSubmit()" color="primary">加入</button>
 
 </form>
+<hr>
+<button mar-raised-button color="primary" (click)="shwoAddDataBaseDialog()">新增文章</button>
 
 <hr>
 資料庫列表
@@ -17,5 +19,30 @@
 <mat-list>
   <mat-list-item *ngFor="let dbitem of dblist">
     <span matLine> {{dbitem.dbkey}} {{dbitem.dburl}} </span>
+    <button mat-icon-button (click)="showInfo(link)">
+      <mat-icon>Edit</mat-icon>
+    </button>
   </mat-list-item>
 </mat-list>
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="dbkey">
+    <mat-header-cell *matHeaderCellDef>資料庫主鍵</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.dbkey}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="dburl">
+    <mat-header-cell *matHeaderCellDef>資料庫連結</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.dburl}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="management">
+    <mat-header-cell *matHeaderCellDef>
+      <u>管理</u>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-button color="primary">回覆</button>
+      <button mat-button color="warn">刪除</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['dbkey','dburl','management']"></mat-header-row>
+  <mat-row *matRowDef="let eachrows;columns:['dbkey','dburl','management']"></mat-row>
+</mat-table>

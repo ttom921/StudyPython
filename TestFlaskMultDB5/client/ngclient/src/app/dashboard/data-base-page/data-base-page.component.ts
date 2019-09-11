@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DbInfoService } from 'src/app/services/db-info.service';
 import { DataBaseInfo } from 'src/app/models/database';
 import { ToasterService } from 'src/app/services/toaster.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { AddDatabaseDialogComponent } from 'src/app/dialog/add-database-dialog/add-database-dialog.component';
 
 @Component({
   selector: 'app-data-base-page',
@@ -9,6 +12,10 @@ import { ToasterService } from 'src/app/services/toaster.service';
   styleUrls: ['./data-base-page.component.scss']
 })
 export class DataBasePageComponent implements OnInit {
+  dataSource = new MatTableDataSource<any>();
+  totalCount: number;
+
+
   public dbinof: DataBaseInfo = new DataBaseInfo();
   dblist = [
     {
@@ -22,6 +29,7 @@ export class DataBasePageComponent implements OnInit {
   ]
   constructor(
     private dbinfoservice: DbInfoService,
+    private dialog: MatDialog,
     private toasterService: ToasterService) { }
 
   ngOnInit() {
@@ -62,6 +70,7 @@ export class DataBasePageComponent implements OnInit {
       res => {
         console.log(res);
         this.dblist = res;
+        this.dataSource.data = res;
       },
       error => {
         console.log(error);
@@ -69,5 +78,23 @@ export class DataBasePageComponent implements OnInit {
       }
     );
   }
+  shwoAddDataBaseDialog() {
+    const dialogRef = this.dialog.open(AddDatabaseDialogComponent, {
+      data: {
+        id: "DLG_ADDDATABASE"
+      }
+    });
+
+    // addDataBaseDialogRef.componentInstance.Add.subscribe(() => {
+    //   console.log("add 被按下");
+    // });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log("對話框被關畢");
+      console.log(res);
+      //this.getDBInfos();
+      location.reload();
+    });
+  }
+
 }
 

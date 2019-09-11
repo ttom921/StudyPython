@@ -48,7 +48,13 @@ def databaselist():
         else:
             # 取得資料庫列表
             result = dbmgr.getAllDB()
-            return jsonify(result)
+            X_Total_Count = len(result)
+            resp = jsonify(result)
+            resp.status_code = 200
+            # 可加入多少個
+            resp.headers.add('X-Total-Count', X_Total_Count)
+            return resp
+            # return jsonify(result)
     except Exception as e:
         print("Failed to api databaseproc")
         print(e)

@@ -7,6 +7,7 @@ import { SharedAngularMaterialModule } from '../share/shared-angular-material/sh
 import { DataBasePageComponent } from './data-base-page/data-base-page.component';
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './user-page/user-page.component';
+import { AddDatabaseDialogComponent } from '../dialog/add-database-dialog/add-database-dialog.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { UserPageComponent } from './user-page/user-page.component';
     FormsModule,
     SharedAngularMaterialModule,
     DashboardRoutingModule
-  ]
+  ],
+  entryComponents: [AddDatabaseDialogComponent]
 })
 export class DashboardModule { }

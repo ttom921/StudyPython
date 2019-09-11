@@ -7,10 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AddDatabaseDialogComponent } from './dialog/add-database-dialog/add-database-dialog.component';
+import { SharedAngularMaterialModule } from './share/shared-angular-material/shared-angular-material.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddDatabaseDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -18,9 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    SharedAngularMaterialModule,
     DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
