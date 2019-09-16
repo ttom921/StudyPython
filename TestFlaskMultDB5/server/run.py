@@ -61,6 +61,28 @@ def databaselist():
         responseObject = resData("fail", "Failed to api databaseproc")
         return jsonify(responseObject), 500
 
+
+@app.route("/databaseproc/<dbkey>", methods=["DELETE"])
+def database_delete(dbkey):
+    try:
+        # if request.form:
+        #     dbkey = request.form.get("dbkey")
+        #     dburl = request.form.get("dburl")
+        #     fmt = '%s-> %s' % (dbkey, dburl)
+        print(dbkey)
+        dbmgr.DelDBUrl(dbkey)
+        responseObject = resData("success", "資料庫連結刪除成功")
+        return jsonify(responseObject), 200
+        # user = User.query.get(id)
+        # db.session.delete(user)
+        # db.session.commit()
+        # return user_schema.jsonify(user)
+    except Exception as e:
+        print("Failed to delete api databaseproc")
+        print(e)
+        responseObject = resData("fail", "Failed to delete api databaseproc")
+        return jsonify(responseObject), 500
+
 # endpoint to create new user
 @app.route("/user", methods=["POST"])
 def add_user():

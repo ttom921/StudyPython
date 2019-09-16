@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { DataBaseInfo } from '../models/database';
 
-// const httpOptions = {
-//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
+const httpOptionsjson = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 const httpOptions = {
   headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
 };
@@ -34,5 +34,12 @@ export class DbInfoService {
     formData.append('dbkey', databaseinfo.dbkey);
     formData.append('dburl', databaseinfo.dburl);
     return this.http.post(api, formData, httpOptions);
+  }
+  // 刪除一個資料庫資料
+  delDataBaseInfo(databaseinfo: DataBaseInfo): Observable<any> {
+    //var api = this.userUrl + "/databaseproc/";
+    var api = `${this.userUrl}/databaseproc/${databaseinfo.dbkey}`;
+
+    return this.http.delete(api, httpOptionsjson);
   }
 }

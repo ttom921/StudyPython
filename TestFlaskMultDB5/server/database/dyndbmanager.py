@@ -14,6 +14,7 @@ class DynDBManager():
         self.session = None
 
     # 加入資料的連結
+
     def AddDBUrl(self, key, dburl):
         if key not in current_app.config['SQLALCHEMY_BINDS']:
             current_app.config['SQLALCHEMY_BINDS'][key] = dburl
@@ -27,6 +28,19 @@ class DynDBManager():
             current_app.config['SQLALCHEMY_BINDS'].pop(key, None)
             raise e
 
+        print(current_app.config['SQLALCHEMY_BINDS'])
+    # 移除資料庫的連結
+
+    def DelDBUrl(self, key):
+        if key in current_app.config['SQLALCHEMY_BINDS']:
+            current_app.config['SQLALCHEMY_BINDS'].pop(key, None)
+        # 重新整理連結的資料庫
+        try:
+            currlist = self.db.get_binds(self.app)
+        except Exception as e:
+            print(e)
+            current_app.config['SQLALCHEMY_BINDS'].pop(key, None)
+            raise e
         print(current_app.config['SQLALCHEMY_BINDS'])
 
     def getSession(self, dbname=None):

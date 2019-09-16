@@ -49,5 +49,16 @@ export class DataBasePageComponent implements OnInit {
       this.getDBInfos();
     });
   }
+  delete(dbinfo) {
+    //console.log(dbinfo);
+    this.dbinfoservice.delDataBaseInfo(dbinfo).subscribe(res => {
+      console.log(res);
+      this.toasterService.showToaster(res.message);
+    }, error => {
+      console.log(error);
+      this.toasterService.showToaster(error.statusText);
+    });
+
+  }
 }
 

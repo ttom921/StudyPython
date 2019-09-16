@@ -5,7 +5,7 @@
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="dbkey">
     <mat-header-cell *matHeaderCellDef>資料庫主鍵</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{row.dbkey}} </mat-cell>
+    <mat-cell *matCellDef="let row;">{{row.dbkey}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="dburl">
     <mat-header-cell *matHeaderCellDef>資料庫連結</mat-header-cell>
@@ -15,9 +15,9 @@
     <mat-header-cell *matHeaderCellDef>
       <u>管理</u>
     </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button mat-button color="primary">回覆</button>
-      <button mat-button color="warn">刪除</button>
+    <mat-cell *matCellDef="let row;">
+      <!-- <button mat-button color="primary">回覆 </button> -->
+      <button *ngIf="row.dbkey!=''" mat-button color="warn" (click)="delete(row)">刪除</button>
     </mat-cell>
   </ng-container>
 
