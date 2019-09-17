@@ -28,6 +28,9 @@
 
 <hr>
 使用者列表
+<mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[2,4,6]">
+
+</mat-paginator>
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>姓名</mat-header-cell>

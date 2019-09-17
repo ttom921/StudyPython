@@ -90,11 +90,21 @@ def get_user(dbkey):
     try:
         if dbkey == "default":
             dbkey = None
-        pagobj= User.paginate(dbkey)    
-        all_users = User.getAll(dbkey)
+        page = int(request.args.get("page"))
+        limit = int(request.args.get("limit"))
+        # print("page=", page)
+        # print("limit=", limit)
+        pageobj = User.paginate(dbkey, page, limit)
         user_schema = UserSchema(many=True)
-        result = user_schema.dump(all_users)
-        return jsonify(result)
+        result = user_schema.dump(pageobj.object_list)
+        resp = jsonify(result)
+        resp.status_code = 200
+        # 全部有多少個
+        X_Total_Count = pageobj.paginator.count
+        resp.headers['Access-Control-Expose-Headers'] = 'X-Total-Count'
+        resp.headers.add('X-Total-Count', X_Total_Count)
+        return resp
+
     except Exception as e:
         print("Failed to get all user")
         print(e)

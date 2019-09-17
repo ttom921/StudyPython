@@ -36,18 +36,18 @@ class User(db.Model):
         session.commit()
     # 分頁查詢
 
-    def paginate(dbname=None, page=1, per_page=2, error_out=False):
+    def paginate(dbname=None, pageIndex=1, per_page=2, error_out=False):
 
         session = dbmgr.getSession(dbname)
         query = session.query(User)
-        paginator = Paginator(query, 2)
-        page_number = 2
-        page = paginator.page(page_number)
+        paginator = Paginator(query, per_page)
+        page = paginator.page(pageIndex)
 
         print("to get total number of records against given query ", page.paginator.count)
         print("to get total number of pages ", page.paginator.total_pages)
         #print("to get range of pages in list ", page.paginator.pages_range)
         print("this is a list that contains the records of current page ", page.object_list)
+        return page
 
 
 class UserSchema(ma.Schema):

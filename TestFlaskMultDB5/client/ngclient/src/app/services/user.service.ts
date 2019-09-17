@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { DbInfoService } from './db-info.service';
@@ -11,7 +11,7 @@ import { DbInfoService } from './db-info.service';
 //   headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 // };
 
-// const httpOptions = {
+// const httpOptionsJson = {
 //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 // };
 const httpOptions = {
@@ -27,9 +27,9 @@ export class UserService {
     private http: HttpClient,
     private dbinfoservice: DbInfoService) { }
   // 取得所有的使用者
-  getUsers(dbkey): Observable<User[]> {
-    var api = `${this.userUrl}/user/${dbkey}`;
-    return this.http.get<User[]>(api);
+  getUsers(dbkey, pageIndex, pageSize): Observable<HttpResponse<User[]>> {
+    var api = `${this.userUrl}/user/${dbkey}?page=${pageIndex + 1}&limit=${pageSize}`;
+    return this.http.get<User[]>(api, { observe: 'response' });
   }
   // 加入一個使用者
   addUser(user: User): Observable<any> {
