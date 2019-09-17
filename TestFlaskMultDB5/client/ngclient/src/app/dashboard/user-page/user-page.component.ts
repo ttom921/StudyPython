@@ -3,6 +3,8 @@ import { DataBaseInfo } from 'src/app/models/database';
 import { DbInfoService } from 'src/app/services/db-info.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-user-page',
@@ -11,11 +13,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserPageComponent implements OnInit {
   dblist: DataBaseInfo[] = [];
-  //選擇的資料庫
-  selectedDBkey:string;
+  dataSource = new MatTableDataSource<any>();
   constructor(
-    private dbinfoservice: DbInfoService,
-    private userservice: UserService) { }
+    public dbinfoservice: DbInfoService,
+    private userservice: UserService,
+    private toasterService: ToasterService) { }
   user: User = new User();
   ngOnInit() {
     // var database1 = new DataBaseInfo();
@@ -43,11 +45,28 @@ export class UserPageComponent implements OnInit {
       this.dblist = res;
     });
   }
+  onDBSelection() {
+    let fmt = `onDBSelection:Seldbkey=${this.dbinfoservice.Seldbkey}`;
+    console.log(fmt);
+    this.userservice.getUsers(this.dbinfoservice.Seldbkey).subscribe(
+      res => {
+        //console.log(res);
+        //this.dblist = res;
+        this.dataSource.data = res;
+      },
+      error => {
+        console.log(error);
+        this.toasterService.showToaster(error.statusText);
+      }
+    );
+  }
   onSubmit() {
     let fmt = `onSubmit:dbinof=${this.user}`;
     console.log(fmt);
-    this.userservice.addUser(this.user).subscribe((res) => {
-      console.log(res);
-    });
+    this.userservice.addUser(this.user).subscribe(
+      (res) => {
+        console.log(res);
+        this.onDBSelection();
+      });
   }
 }

@@ -27,8 +27,8 @@ export class UserService {
     private http: HttpClient,
     private dbinfoservice: DbInfoService) { }
   // 取得所有的使用者
-  getUsers(): Observable<User[]> {
-    var api = this.userUrl + "/user";
+  getUsers(dbkey): Observable<User[]> {
+    var api = `${this.userUrl}/user/${dbkey}`;
     return this.http.get<User[]>(api);
   }
   // 加入一個使用者

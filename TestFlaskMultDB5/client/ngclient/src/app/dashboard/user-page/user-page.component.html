@@ -2,7 +2,7 @@
 <hr>
 <mat-form-field>
   <mat-label>選擇資料庫</mat-label>
-  <mat-select [(ngModel)]="dbinfoservice.Seldbkey" name="dbkey">
+  <mat-select [(ngModel)]="dbinfoservice.Seldbkey" name="dbkey" (ngModelChange)="onDBSelection()">
     <mat-option *ngFor="let db of dblist" [value]="db.dbkey">
       {{db.dbkey}}
     </mat-option>
@@ -28,3 +28,25 @@
 
 <hr>
 使用者列表
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row;">{{row.name}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef>暱稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.username}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="management">
+    <mat-header-cell *matHeaderCellDef>
+      <u>管理</u>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row;">
+      <!-- <button mat-button color="primary">回覆 </button> -->
+      <button *ngIf="row.dbkey!=''" mat-button color="warn">刪除</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['name','username','management']"></mat-header-row>
+  <mat-row *matRowDef="let eachrows;columns:['name','username','management']"></mat-row>
+</mat-table>

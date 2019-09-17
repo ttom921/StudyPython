@@ -69,7 +69,7 @@ def database_delete(dbkey):
         #     dbkey = request.form.get("dbkey")
         #     dburl = request.form.get("dburl")
         #     fmt = '%s-> %s' % (dbkey, dburl)
-        print(dbkey)
+        # print(dbkey)
         dbmgr.DelDBUrl(dbkey)
         responseObject = resData("success", "資料庫連結刪除成功")
         return jsonify(responseObject), 200
@@ -82,6 +82,24 @@ def database_delete(dbkey):
         print(e)
         responseObject = resData("fail", "Failed to delete api databaseproc")
         return jsonify(responseObject), 500
+
+# 使用者相關
+# endpoint to show all users
+@app.route("/user/<dbkey>", methods=["GET"])
+def get_user(dbkey):
+    try:
+        if dbkey == "default":
+            dbkey = None
+        pagobj= User.paginate(dbkey)    
+        all_users = User.getAll(dbkey)
+        user_schema = UserSchema(many=True)
+        result = user_schema.dump(all_users)
+        return jsonify(result)
+    except Exception as e:
+        print("Failed to get all user")
+        print(e)
+        result = {'data': 'notok'}
+        return jsonify(result), 500
 
 # endpoint to create new user
 @app.route("/user", methods=["POST"])

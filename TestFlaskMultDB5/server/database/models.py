@@ -1,5 +1,6 @@
 import hashlib
 from .dyndbmanager import db, ma, dbmgr
+from sqlalchemy_paginator import Paginator
 
 
 class User(db.Model):
@@ -33,6 +34,20 @@ class User(db.Model):
         print("delete{} (id={})".format(session, id(session)))
         session.delete(row)
         session.commit()
+    # 分頁查詢
+
+    def paginate(dbname=None, page=1, per_page=2, error_out=False):
+
+        session = dbmgr.getSession(dbname)
+        query = session.query(User)
+        paginator = Paginator(query, 2)
+        page_number = 2
+        page = paginator.page(page_number)
+
+        print("to get total number of records against given query ", page.paginator.count)
+        print("to get total number of pages ", page.paginator.total_pages)
+        #print("to get range of pages in list ", page.paginator.pages_range)
+        print("this is a list that contains the records of current page ", page.object_list)
 
 
 class UserSchema(ma.Schema):
