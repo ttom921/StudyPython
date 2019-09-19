@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddDatabaseDialogComponent } from './dialog/add-database-dialog/add-database-dialog.component';
 import { SharedAngularMaterialModule } from './share/shared-angular-material/shared-angular-material.module';
 import { DeleteDatabaseDialogComponent } from './dialog/delete-database-dialog/delete-database-dialog.component';
+import { AddUserDialogComponent } from './dialog/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddDatabaseDialogComponent,
-    DeleteDatabaseDialogComponent
+    DeleteDatabaseDialogComponent,
+    AddUserDialogComponent
   ],
   imports: [
     BrowserModule,

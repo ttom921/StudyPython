@@ -10,25 +10,12 @@
 </mat-form-field>
 <hr>
 加入使用者
-<form>
-  <mat-form-field>
-    <input matInput placeholder="使用者名稱" [(ngModel)]="user.name" name="name" required>
-  </mat-form-field>
-  ｜
-  <mat-form-field>
-    <input matInput placeholder="使用者別名" [(ngModel)]="user.username" name="username" required>
-  </mat-form-field>
-  ｜
-  <mat-form-field>
-    <input type="password" matInput placeholder="密碼" [(ngModel)]="user.password" name="password" required>
-  </mat-form-field>
-  <button [disabled]="!dbinfoservice.Seldbkey" mat-raised-button (click)="onSubmit()" color="primary">加入</button>
-
-</form>
+<button [disabled]="!dbinfoservice.Seldbkey" mat-raised-button (click)="showAddUserDialog()" color="primary">加入</button>
 
 <hr>
 使用者列表
-<mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[2,4,6]">
+<mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions">
 
 </mat-paginator>
 <mat-table #table [dataSource]="dataSource">

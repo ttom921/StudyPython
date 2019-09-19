@@ -6,7 +6,8 @@ import { UserService } from 'src/app/services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { MatPaginator, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
-import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserDialogComponent } from 'src/app/dialog/add-user-dialog/add-user-dialog.component';
 
 @Component({
   selector: 'app-user-page',
@@ -17,16 +18,18 @@ export class UserPageComponent implements OnInit {
   //分頁功能
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   totalCount: number = 0;
+  pageSize = 2;
+  pageSizeOptions: number[] = [2, 4, 6];
   private userUrl = "http://localhost:3000";
 
   dblist: DataBaseInfo[] = [];
   dataSource = new MatTableDataSource<any>();
   constructor(
+    private dialog: MatDialog,
     public dbinfoservice: DbInfoService,
     private userservice: UserService,
     private toasterService: ToasterService,
     private matPaginatorIntl: MatPaginatorIntl, ) { }
-  user: User = new User();
   ngOnInit() {
     this.getDBInfos();
 
@@ -70,15 +73,7 @@ export class UserPageComponent implements OnInit {
     console.log(fmt);
     this.getPages(0, 2);
   }
-  onSubmit() {
-    //let fmt = `onSubmit:dbinof=${this.user}`;
-    //console.log(fmt);
-    this.userservice.addUser(this.user).subscribe(
-      (res) => {
-        console.log(res);
-        this.onDBSelection();
-      });
-  }
+
   //分頁功能相關
   getPages(pageIndex, PageSize) {
     this.userservice.getUsers(this.dbinfoservice.Seldbkey, pageIndex, PageSize).subscribe(
@@ -96,5 +91,14 @@ export class UserPageComponent implements OnInit {
         this.toasterService.showToaster(error.statusText);
       }
     );
+  }
+  // 顯示加入使用者
+  showAddUserDialog() {
+    const dialogRef = this.dialog.open(AddUserDialogComponent);
+    dialogRef.afterClosed().subscribe(res => {
+      //console.log(res);
+      this.paginator.pageSize = this.pageSize;
+      this.onDBSelection();
+    });
   }
 }

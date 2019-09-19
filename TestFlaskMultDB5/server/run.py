@@ -125,8 +125,11 @@ def add_user():
             session = dbmgr.getSession(dbkey)
             session.add(new_user)
             session.commit()
-            user_schema = UserSchema()
-            return user_schema.jsonify(new_user)
+            responseObject = resData("success", "使用者加入成功")
+            return jsonify(responseObject), 200
+
+            # user_schema = UserSchema()
+            # return user_schema.jsonify(new_user)
             # result = UserSchema.dump(new_user)
             # return jsonify(result), 200
             # return user_schema.jsonify(new_user)
@@ -138,7 +141,7 @@ def add_user():
         except Exception as e:
             print("Failed to add user")
             print(e)
-            result = {'data': 'notok'}
+            result = {'data': '加入使用者失敗'}
             return jsonify(result), 500
 
 
