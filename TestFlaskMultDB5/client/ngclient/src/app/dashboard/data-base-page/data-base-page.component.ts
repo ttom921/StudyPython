@@ -55,29 +55,14 @@ export class DataBasePageComponent implements OnInit {
     console.log(row);
     const dialogRef = this.dialog.open(DeleteDatabaseDialogComponent, {
       data: {
-        dbkey: row.dbkey,
-        dburl: row.dburl,
+        dbinfo: row
       }
     });
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
-      if (res == "confirm") {
-        //console.log("確定執行");
-        this.delete(row);
-      }
-    });
-  }
-  delete(dbinfo) {
-    //console.log(dbinfo);
-    this.dbinfoservice.delDataBaseInfo(dbinfo).subscribe(res => {
-      console.log(res);
-      this.toasterService.showToaster(res.message);
+      //console.log(res);
       this.getDBInfos();
-    }, error => {
-      console.log(error);
-      this.toasterService.showToaster(error.statusText);
     });
-
   }
+
 }
 
