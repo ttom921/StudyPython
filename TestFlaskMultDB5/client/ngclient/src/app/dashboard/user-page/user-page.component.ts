@@ -48,7 +48,7 @@ export class UserPageComponent implements OnInit {
     // //curdblist = [];
     this.dbinfoservice.getDBInfos().subscribe((res) => {
 
-      console.log(res);
+      //console.log(res);
       res.forEach(item => {
         //console.log(item);
         if (item.dbkey == "") {
@@ -78,8 +78,8 @@ export class UserPageComponent implements OnInit {
     // );
   }
   onSubmit() {
-    let fmt = `onSubmit:dbinof=${this.user}`;
-    console.log(fmt);
+    //let fmt = `onSubmit:dbinof=${this.user}`;
+    //console.log(fmt);
     this.userservice.addUser(this.user).subscribe(
       (res) => {
         console.log(res);
