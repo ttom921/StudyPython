@@ -5,7 +5,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToasterService } from 'src/app/services/toaster.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,23 +25,30 @@ export class UserPageComponent implements OnInit {
     public dbinfoservice: DbInfoService,
     private userservice: UserService,
     private toasterService: ToasterService,
-    private http: HttpClient, ) { }
+    private matPaginatorIntl: MatPaginatorIntl, ) { }
   user: User = new User();
   ngOnInit() {
-    // var database1 = new DataBaseInfo();
-    // database1.dbkey = "dbkey";
-    // database1.dburl = "dburl";
-    // this.dblist.push(database1);
-    // var database2 = new DataBaseInfo();
-    // database2.dbkey = "dbkey2";
-    // database2.dburl = "dburl2";
-    // this.dblist.push(database2);
     this.getDBInfos();
+
     // 分頁切換時，重新取得資料
     this.paginator.page.subscribe((page: PageEvent) => {
       //console.log(`pageIndex=${page.pageIndex}:pageSize=${page.pageSize}`);
       this.getPages(page.pageIndex, page.pageSize);
     });
+    // 設定顯示筆數資訊文字
+    this.matPaginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number): string => {
+      if (length === 0 || pageSize === 0) {
+        return `第 0 筆、共  ${length} 筆`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const ednIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+      return `第 ${startIndex + 1} - ${ednIndex} 筆、共  ${length} 筆`
+    };
+    // 設定其他顯示資訊文字
+    this.matPaginatorIntl.itemsPerPageLabel = '每頁筆數：';
+    this.matPaginatorIntl.nextPageLabel = '下一頁';
+    this.matPaginatorIntl.previousPageLabel = '上一頁';
   }
   getDBInfos() {
     //console.log('getDBInfos------------------');
@@ -62,20 +69,6 @@ export class UserPageComponent implements OnInit {
     let fmt = `onDBSelection:Seldbkey=${this.dbinfoservice.Seldbkey}`;
     console.log(fmt);
     this.getPages(0, 2);
-    // this.userservice.getUsers(this.dbinfoservice.Seldbkey).subscribe(
-    //   res => {
-    //     //console.log(res);
-    //     //this.dblist = res;
-    //     this.dataSource.data = res;
-    //     // //分頁功能
-    //     this.totalCount = res.length;
-    //     this.dataSource.paginator = this.paginator;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.toasterService.showToaster(error.statusText);
-    //   }
-    // );
   }
   onSubmit() {
     //let fmt = `onSubmit:dbinof=${this.user}`;
@@ -88,18 +81,6 @@ export class UserPageComponent implements OnInit {
   }
   //分頁功能相關
   getPages(pageIndex, PageSize) {
-    // this.http.get<any>(`https://jsonplaceholder.typicode.com/comments?_page=${pageIndex + 1}&_limit=${PageSize}`, { observe: 'response' }).subscribe(data => {
-    //   this.totalCount = Number(data.headers.get('X-Total-Count'))
-    //   console.log("this.totalCount=" + this.totalCount);
-    // });
-
-    // var api = `${this.userUrl}/user/${this.dbinfoservice.Seldbkey}?page=${pageIndex + 1}&limit=${PageSize}`;
-    // this.http.get<any>(api, { observe: 'response' }).subscribe(
-    //   resp => {
-    //     console.log(resp.headers.get('X-Total-Count'));
-    //     //console.log(resp.headers.get('AAAAAA'));
-    //   }
-    // );
     this.userservice.getUsers(this.dbinfoservice.Seldbkey, pageIndex, PageSize).subscribe(
       resp => {
         //console.log(res);
