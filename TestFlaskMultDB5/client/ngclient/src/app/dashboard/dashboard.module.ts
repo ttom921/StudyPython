@@ -8,6 +8,7 @@ import { DataBasePageComponent } from './data-base-page/data-base-page.component
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './user-page/user-page.component';
 import { AddDatabaseDialogComponent } from '../dialog/add-database-dialog/add-database-dialog.component';
+import { DeleteDatabaseDialogComponent } from '../dialog/delete-database-dialog/delete-database-dialog.component';
 
 
 @NgModule({
@@ -18,6 +19,6 @@ import { AddDatabaseDialogComponent } from '../dialog/add-database-dialog/add-da
     SharedAngularMaterialModule,
     DashboardRoutingModule
   ],
-  entryComponents: [AddDatabaseDialogComponent]
+  entryComponents: [AddDatabaseDialogComponent,DeleteDatabaseDialogComponent]
 })
 export class DashboardModule { }

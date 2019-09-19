@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>移除資料庫的連結</h2>
+<mat-dialog-content>
+  確定要移除這資料庫的連結？<br>
+  資料庫主鍵-> {{dbkey}} 資料庫連結-> {{dburl}}
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="confirm()">確認</button>
+  <button mat-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>

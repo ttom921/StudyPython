@@ -5,6 +5,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDatabaseDialogComponent } from 'src/app/dialog/add-database-dialog/add-database-dialog.component';
+import { DeleteDatabaseDialogComponent } from 'src/app/dialog/delete-database-dialog/delete-database-dialog.component';
 
 @Component({
   selector: 'app-data-base-page',
@@ -49,11 +50,29 @@ export class DataBasePageComponent implements OnInit {
       this.getDBInfos();
     });
   }
+  // 顯示刪除的對話框
+  showDeleteDialog(row) {
+    console.log(row);
+    const dialogRef = this.dialog.open(DeleteDatabaseDialogComponent, {
+      data: {
+        dbkey: row.dbkey,
+        dburl: row.dburl,
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+      if (res == "confirm") {
+        //console.log("確定執行");
+        this.delete(row);
+      }
+    });
+  }
   delete(dbinfo) {
     //console.log(dbinfo);
     this.dbinfoservice.delDataBaseInfo(dbinfo).subscribe(res => {
       console.log(res);
       this.toasterService.showToaster(res.message);
+      this.getDBInfos();
     }, error => {
       console.log(error);
       this.toasterService.showToaster(error.statusText);
