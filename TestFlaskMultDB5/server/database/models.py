@@ -29,6 +29,10 @@ class User(db.Model):
         session = dbmgr.getSession(dbname)
         return session.query(User).all()
 
+    def getUser(id, dbname=None):
+        session = dbmgr.getSession(dbname)
+        return session.query(User).filter_by(id=id).first()
+
     def delete(row, dbname=None):
         session = dbmgr.getSession(dbname)
         print("delete{} (id={})".format(session, id(session)))

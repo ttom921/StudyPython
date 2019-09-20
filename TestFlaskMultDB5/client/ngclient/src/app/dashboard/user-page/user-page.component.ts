@@ -8,6 +8,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
 import { MatPaginator, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialogComponent } from 'src/app/dialog/add-user-dialog/add-user-dialog.component';
+import { DeleteUserDialogComponent } from 'src/app/dialog/delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-user-page',
@@ -92,13 +93,29 @@ export class UserPageComponent implements OnInit {
       }
     );
   }
+  reloaduser() {
+    this.paginator.pageSize = this.pageSize;
+    this.onDBSelection();
+  }
   // 顯示加入使用者
   showAddUserDialog() {
     const dialogRef = this.dialog.open(AddUserDialogComponent);
     dialogRef.afterClosed().subscribe(res => {
       //console.log(res);
-      this.paginator.pageSize = this.pageSize;
-      this.onDBSelection();
+      this.reloaduser();
+    });
+  }
+  // 顯示刪除的對話框
+  showDeleteUserDialog(row) {
+    //console.log(row);
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: {
+        iteminfo: row
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      //console.log(res);
+      this.reloaduser();
     });
   }
 }

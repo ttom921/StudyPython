@@ -11,9 +11,9 @@ import { DbInfoService } from './db-info.service';
 //   headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
 // };
 
-// const httpOptionsJson = {
-//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
+const httpOptionsJson = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 const httpOptions = {
   headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
 };
@@ -41,4 +41,11 @@ export class UserService {
     formData.append('password', user.password);
     return this.http.post(api, formData, httpOptions);
   }
+  //刪除一個使用者
+  delUser(user: User): Observable<any> {
+    var api = this.userUrl + "/user/${databaseinfo.dbkey}";
+    var api = `${this.userUrl}/user/${this.dbinfoservice.Seldbkey}/${user.id}`;
+    return this.http.delete(api, httpOptionsJson);
+  }
+
 }

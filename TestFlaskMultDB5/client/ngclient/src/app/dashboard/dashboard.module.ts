@@ -10,6 +10,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { AddDatabaseDialogComponent } from '../dialog/add-database-dialog/add-database-dialog.component';
 import { DeleteDatabaseDialogComponent } from '../dialog/delete-database-dialog/delete-database-dialog.component';
 import { AddUserDialogComponent } from '../dialog/add-user-dialog/add-user-dialog.component';
+import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-user-dialog.component';
 
 
 @NgModule({
@@ -20,6 +21,6 @@ import { AddUserDialogComponent } from '../dialog/add-user-dialog/add-user-dialo
     SharedAngularMaterialModule,
     DashboardRoutingModule
   ],
-  entryComponents: [AddDatabaseDialogComponent, DeleteDatabaseDialogComponent, AddUserDialogComponent]
+  entryComponents: [AddDatabaseDialogComponent, DeleteDatabaseDialogComponent, AddUserDialogComponent, DeleteUserDialogComponent]
 })
 export class DashboardModule { }

@@ -11,13 +11,15 @@ import { AddDatabaseDialogComponent } from './dialog/add-database-dialog/add-dat
 import { SharedAngularMaterialModule } from './share/shared-angular-material/shared-angular-material.module';
 import { DeleteDatabaseDialogComponent } from './dialog/delete-database-dialog/delete-database-dialog.component';
 import { AddUserDialogComponent } from './dialog/add-user-dialog/add-user-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddDatabaseDialogComponent,
     DeleteDatabaseDialogComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    DeleteUserDialogComponent
   ],
   imports: [
     BrowserModule,

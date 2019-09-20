@@ -143,6 +143,23 @@ def add_user():
             print(e)
             result = {'data': '加入使用者失敗'}
             return jsonify(result), 500
+# endpoint to delete user
+
+
+@app.route("/user/<dbkey>/<id>", methods=["DELETE"])
+def user_delete(dbkey, id):
+    try:
+        if dbkey == "default":
+            dbkey = None
+        row = User.getUser(id, dbkey)
+        User.delete(row, dbkey)
+        responseObject = resData("success", "使用者刪除成功")
+        return jsonify(responseObject), 200
+    except Exception as e:
+        print("Failed to del user")
+        print(e)
+        result = {'data': '刪除使用者失敗'}
+        return jsonify(result), 500
 
 
 if __name__ == "__main__":

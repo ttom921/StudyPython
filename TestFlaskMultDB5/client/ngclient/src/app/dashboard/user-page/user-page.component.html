@@ -21,7 +21,11 @@
 <mat-table #table [dataSource]="dataSource">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>姓名</mat-header-cell>
-    <mat-cell *matCellDef="let row;">{{row.name}}</mat-cell>
+    <mat-cell *matCellDef="let row;">
+      <mat-form-field floatLabel="never">
+        <input matInput placeholder="Name" [value]="row.name" [(ngModel)]="row.name">
+      </mat-form-field>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="username">
     <mat-header-cell *matHeaderCellDef>暱稱</mat-header-cell>
@@ -33,7 +37,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row;">
       <!-- <button mat-button color="primary">回覆 </button> -->
-      <button *ngIf="row.dbkey!=''" mat-button color="warn">刪除</button>
+      <button *ngIf="row.dbkey!=''" mat-button color="warn" (click)="showDeleteUserDialog(row)">刪除</button>
     </mat-cell>
   </ng-container>
 
