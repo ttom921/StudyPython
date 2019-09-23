@@ -16,6 +16,11 @@
 <mat-sidenav-container class="demo-app-container">
   <mat-sidenav class="demo-app-sidenav" #sideNav mode="push">
     <mat-nav-list>
+      <h3 matSubheader>電影相關</h3>
+      <a [routerLink]="['/', 'dashboard', 'movelistpage']" mat-list-item>電影列表</a>
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+    <mat-nav-list>
       <h3 matSubheader>使用者相關</h3>
       <a [routerLink]="['/', 'dashboard', 'userpage']" mat-list-item>使用者</a>
       <mat-divider></mat-divider>

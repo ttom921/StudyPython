@@ -1,0 +1,29 @@
+<hr>
+資料庫列表
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>名字</mat-header-cell>
+    <mat-cell *matCellDef="let row;">{{row.name}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="dataurl">
+    <mat-header-cell *matHeaderCellDef>名字連結</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.dataurl}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="management">
+    <mat-header-cell *matHeaderCellDef>
+      <u>管理</u>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row;">
+      <!-- <button mat-button color="primary">回覆 </button> -->
+      <button mat-button color="warn" (click)="showmove(row)">播放</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['name','dataurl','management']"></mat-header-row>
+  <mat-row *matRowDef="let eachrows;columns:['name','dataurl','management']"></mat-row>
+</mat-table>
+<video #vmovie controls width="640" height="360">
+  <source src="" type="video/mp4" />
+  您的瀏覽器不支援HTML 5影片播放標籤<video>格式。
+    Your browser doesn't support the <video> tag.
+    </video>
