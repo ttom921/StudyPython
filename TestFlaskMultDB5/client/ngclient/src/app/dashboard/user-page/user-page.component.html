@@ -36,7 +36,7 @@
       <u>管理</u>
     </mat-header-cell>
     <mat-cell *matCellDef="let row;">
-      <!-- <button mat-button color="primary">回覆 </button> -->
+      <button *ngIf="row.dbkey!=''" mat-button color="primary" (click)="showModifyUserDialog(row)">修改 </button>
       <button *ngIf="row.dbkey!=''" mat-button color="warn" (click)="showDeleteUserDialog(row)">刪除</button>
     </mat-cell>
   </ng-container>

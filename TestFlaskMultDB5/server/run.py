@@ -128,21 +128,35 @@ def add_user():
             responseObject = resData("success", "使用者加入成功")
             return jsonify(responseObject), 200
 
-            # user_schema = UserSchema()
-            # return user_schema.jsonify(new_user)
-            # result = UserSchema.dump(new_user)
-            # return jsonify(result), 200
-            # return user_schema.jsonify(new_user)
-            # db.session.add(new_user)
-            # db.session.commit()
-            # return UserSchema.jsonify(new_user)
-            #result = {'data': 'ok'}
-            # return jsonify(result), 200
         except Exception as e:
             print("Failed to add user")
             print(e)
             result = {'data': '加入使用者失敗'}
             return jsonify(result), 500
+
+# endpoint to update user
+@app.route("/user/<id>", methods=["PUT"])
+def user_update(id):
+    try:
+        dbkey = checkdbname(request.form.get('dbkey'))
+        name = request.form.get("name")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        row = User.getUser(id, dbkey)
+        row.name = name
+        row.username = username
+        row.password = password
+        session = dbmgr.getSession(dbkey)
+        session.flush()
+        responseObject = resData("success", "修改使用者成功")
+        return jsonify(responseObject), 200
+
+    except Exception as e:
+        print("Failed to update user")
+        print(e)
+        result = {'data': '修改使用者失敗'}
+        return jsonify(result), 500
+
 # endpoint to delete user
 
 

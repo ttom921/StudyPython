@@ -9,6 +9,7 @@ import { MatPaginator, PageEvent, MatPaginatorIntl } from '@angular/material/pag
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialogComponent } from 'src/app/dialog/add-user-dialog/add-user-dialog.component';
 import { DeleteUserDialogComponent } from 'src/app/dialog/delete-user-dialog/delete-user-dialog.component';
+import { ModifyUserDialogComponent } from 'src/app/dialog/modify-user-dialog/modify-user-dialog.component';
 
 @Component({
   selector: 'app-user-page',
@@ -109,6 +110,18 @@ export class UserPageComponent implements OnInit {
   showDeleteUserDialog(row) {
     //console.log(row);
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: {
+        iteminfo: row
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      //console.log(res);
+      this.reloaduser();
+    });
+  }
+  //顯示修改的對話框
+  showModifyUserDialog(row) {
+    const dialogRef = this.dialog.open(ModifyUserDialogComponent, {
       data: {
         iteminfo: row
       }

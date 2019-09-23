@@ -43,9 +43,19 @@ export class UserService {
   }
   //刪除一個使用者
   delUser(user: User): Observable<any> {
-    var api = this.userUrl + "/user/${databaseinfo.dbkey}";
+    //var api = this.userUrl + "/user/${databaseinfo.dbkey}";
     var api = `${this.userUrl}/user/${this.dbinfoservice.Seldbkey}/${user.id}`;
     return this.http.delete(api, httpOptionsJson);
+  }
+  //修改一個使用者
+  modify(user: User): Observable<any> {
+    var api = `${this.userUrl}/user/${user.id}`;
+    const formData: FormData = new FormData();
+    formData.append('dbkey', this.dbinfoservice.Seldbkey);
+    formData.append('name', user.name);
+    formData.append('username', user.username);
+    formData.append('password', user.password);
+    return this.http.put(api, formData, httpOptions);
   }
 
 }

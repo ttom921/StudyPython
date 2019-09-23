@@ -11,6 +11,7 @@ import { AddDatabaseDialogComponent } from '../dialog/add-database-dialog/add-da
 import { DeleteDatabaseDialogComponent } from '../dialog/delete-database-dialog/delete-database-dialog.component';
 import { AddUserDialogComponent } from '../dialog/add-user-dialog/add-user-dialog.component';
 import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-user-dialog.component';
+import { ModifyUserDialogComponent } from '../dialog/modify-user-dialog/modify-user-dialog.component';
 
 
 @NgModule({
@@ -21,6 +22,6 @@ import { DeleteUserDialogComponent } from '../dialog/delete-user-dialog/delete-u
     SharedAngularMaterialModule,
     DashboardRoutingModule
   ],
-  entryComponents: [AddDatabaseDialogComponent, DeleteDatabaseDialogComponent, AddUserDialogComponent, DeleteUserDialogComponent]
+  entryComponents: [AddDatabaseDialogComponent, DeleteDatabaseDialogComponent, AddUserDialogComponent, DeleteUserDialogComponent, ModifyUserDialogComponent]
 })
 export class DashboardModule { }
