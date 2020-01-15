@@ -12,8 +12,10 @@ def get_message():
 def stream():
     def eventStream():
         while True:
+            timestamp = time.time() 
             # wait for source data to be available, then push it
             yield 'data: {}\n\n'.format(get_message())
+            yield 'event: ping\ndata: %d\n\n' % timestamp 
     return Response(eventStream(), mimetype="text/event-stream")  
 
 @app.route('/')

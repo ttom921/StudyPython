@@ -25,6 +25,9 @@ export class ChatComponent implements OnInit {
       console.log('connection open');
       console.log(e);
     }
+    evtSource.addEventListener('ping', function (e) {
+      console.log(e['data']);
+    });
   }
 
   ngOnInit() {
