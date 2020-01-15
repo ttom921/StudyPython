@@ -8,7 +8,7 @@ def get_message():
     s = time.ctime(time.time())
     return s
 
-@app.route('/stream')
+@app.route('/api/stream')
 def stream():
     def eventStream():
         while True:

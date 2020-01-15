@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -7,20 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
   source: any = {};
-  //url = "http://172.18.2.33:5000";
-  url = "http://127.0.0.1:5000";
-  channel = "api/stream";
+  api = `${environment.apiUrl}/stream`;
   constructor() {
-    // let sesurl = `${this.url}/${this.channel}`;
-    // this.source = new EventSource(sesurl);
-    // this.source.addEventListener('message', message => {
-    //   //this.myData = JSON.parse(message.data);
-    //   console.log(message);
-    // });
-    // // this.source.onmessage = function (event) {
-    // //   console.log(event);
-    // // }
-    var evtSource = new EventSource("http://localhost:5000/stream");
+    var evtSource = new EventSource(this.api);
 
     evtSource.onmessage = (e) => {
       console.log('connection message');

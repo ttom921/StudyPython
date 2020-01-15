@@ -1,0 +1,22 @@
+{
+  "/api": {
+    "target": "http://172.18.2.33:5000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/asa": {
+    "target": "http://172.18.2.160",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/ors": {
+    "target": "http://ttom.tplinkdns.com:8080",
+    "secure": false,
+    "changeOrigin": false
+  },
+  "/opendata": {
+    "target": "http://data.taipei",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
