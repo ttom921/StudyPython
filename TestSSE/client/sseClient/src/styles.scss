@@ -1,0 +1,20 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
+//使mat-car有作用
+mat-card{
+  margin:4px;
+}
+//寬度為填滿
+.full-width{
+  width: 100%;
+}
+html, body, app-root {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.fill-remaining-space {
+  // 使用 flexbox 填充剩余空间
+  // @angular/material 中的很多控件使用了 flex 布局
+  flex: 1 1 auto;
+}

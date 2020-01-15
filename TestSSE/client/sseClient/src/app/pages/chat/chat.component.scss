@@ -1,0 +1,13 @@
+.flex-container {
+  display: flex;   /* Magic begins */
+  align-items: center;
+  //margin-top: 64px;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+.center {
+  flex: 1;
+
+  //width: calc(100% - 200px);
+}
