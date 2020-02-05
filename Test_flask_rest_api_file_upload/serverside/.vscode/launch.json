@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            // 選擇虛擬環境中的python版本
+            "pythonPath": "D:/Project/github/StudyPython/pyvirenv/pyenv37/Scripts/python.exe",
+            "env": {
+                // 入口文件
+                "FLASK_APP": "main.py"
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                "--no-reload"
+            ],
+            "jinja": true
+        }
+    ]
+}
