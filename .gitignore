@@ -103,3 +103,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+/Test_flask_rest_api_file_upload/clientside/learn-rollup4/node_modules
