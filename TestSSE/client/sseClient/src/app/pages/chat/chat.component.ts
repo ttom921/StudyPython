@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ChatService } from 'src/app/_services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,30 +8,24 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  source: any = {};
+  lidatas = [];
   api = `${environment.apiUrl}/stream`;
-  constructor() {
-    var evtSource = new EventSource(this.api);
-
-    evtSource.onmessage = (e) => {
-      console.log('connection message');
-      console.log(e.data);
-    }
-    evtSource.onerror = (e) => {
-      console.log('connection error');
-      console.log(e);
-      evtSource.close();
-    }
-    evtSource.onopen = (e) => {
-      console.log('connection open');
-      console.log(e);
-    }
-    evtSource.addEventListener('ping', function (e) {
-      console.log(e['data']);
+  constructor(
+    private chatService: ChatService,
+  ) {
+    const source = this.chatService.getEventSource("channel1");
+    source.addEventListener('social', (event: MessageEvent) => {
+      console.log(event.data);
+      this.lidatas.push(event.data);
+      //var data = JSON.parse(event.data);
     });
+    source.addEventListener('error', (event: MessageEvent) => {
+      console.log('reconnected service!')
+    }, false);
   }
 
   ngOnInit() {
+
 
   }
 

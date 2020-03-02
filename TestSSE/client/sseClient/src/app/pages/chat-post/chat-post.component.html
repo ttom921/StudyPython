@@ -1,0 +1,23 @@
+<div class="flex-container">
+  <div class="center">
+    <p>chat-post works!</p>
+    <form [formGroup]="formModel" (ngSubmit)="onSubmit($event)">
+      <mat-card>
+        <mat-form-field class="full-width">
+          <mat-icon matPrefix style="margin-right: 10px;">mail</mat-icon>
+          <input matInput placeholder="channelname" formControlName="channel">
+          <mat-error *ngIf="formErrors.channel">{{formErrors.channel}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-icon matPrefix style="margin-right: 10px;">vpn_key</mat-icon>
+          <input matInput placeholder="message" formControlName="message">
+          <mat-error *ngIf="formErrors.message">{{formErrors.message}}</mat-error>
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button type="submit" [disabled]="!formModel.valid" color="primary">Send</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+
+</div>

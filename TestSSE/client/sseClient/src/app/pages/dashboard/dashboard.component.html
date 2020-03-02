@@ -6,11 +6,11 @@
       <mat-icon *ngIf="!isExpanded">arrow_right</mat-icon>
     </button>
     <mat-nav-list>
-      <mat-list-item [routerLink]="['/','dashboard','home']">
+      <mat-list-item [routerLink]="['/','dashboard','chat']">
         <mat-icon mat-list-icon>person</mat-icon>
         <h4 mat-line *ngIf="isExpanded">serversetting</h4>
       </mat-list-item>
-      <mat-list-item [routerLink]="['/','dashboard','carlist']">
+      <mat-list-item [routerLink]="['/','dashboard','chatpost']">
         <mat-icon mat-list-icon>assignment</mat-icon>
         <h4 mat-line *ngIf="isExpanded">Car List</h4>
       </mat-list-item>
