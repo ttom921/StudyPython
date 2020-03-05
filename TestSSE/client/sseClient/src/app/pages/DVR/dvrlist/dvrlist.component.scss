@@ -1,0 +1,19 @@
+.flex-container {
+  display: flex;   /* Magic begins */
+  align-items: center;
+  //margin-top: 64px;
+  flex-direction: column;
+  width: 95vw;
+  height: 100vh;
+}
+.center {
+  flex: 1;
+}
+table {
+  width: 90vw;
+}
+.example-viewport {
+  height: 90vh;
+  width: 90vw;
+  border: 1px solid black;
+}

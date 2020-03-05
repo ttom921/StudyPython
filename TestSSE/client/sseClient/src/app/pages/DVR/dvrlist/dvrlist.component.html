@@ -1,0 +1,48 @@
+<div class="flex-container">
+  <div class="center">
+    <cdk-virtual-scroll-viewport itemSize="0" class="example-viewport">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- 表格標題 -->
+        <ng-container matColumnDef="dvr_uid">
+          <th mat-header-cell *matHeaderCellDef> DVR UID </th>
+          <td mat-cell *matCellDef="let row"> {{row.dvr_uid}} </td>
+        </ng-container>
+
+        <!-- 表格標題 車牌 -->
+        <ng-container matColumnDef="car_uid">
+          <th mat-header-cell *matHeaderCellDef> 車牌 </th>
+          <td mat-cell *matCellDef="let row"> {{row.car.car_uid}} </td>
+        </ng-container>
+
+        <!-- 表格標題 車牌 -->
+        <ng-container matColumnDef="dvr_model">
+          <th mat-header-cell *matHeaderCellDef> 型號 </th>
+          <td mat-cell *matCellDef="let row"> {{row.dvr_model}} </td>
+        </ng-container>
+
+        <!-- 表格標題 -->
+        <ng-container matColumnDef="version">
+          <th mat-header-cell *matHeaderCellDef> 版本 </th>
+          <td mat-cell *matCellDef="let row"> {{row.version}} </td>
+        </ng-container>
+
+        <!-- 表格標題 -->
+        <ng-container matColumnDef="fw_update_progress">
+          <th mat-header-cell *matHeaderCellDef> 進度 </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.car.fw_update_progress}}
+            <mat-progress-bar mode="determinate" value="{{row.car.fw_update_progress}}" color="accent">
+            </mat-progress-bar>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['dvr_uid','car_uid','dvr_model','version','fw_update_progress'];sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['dvr_uid','car_uid','dvr_model','version','fw_update_progress'];"></tr>
+      </table>
+    </cdk-virtual-scroll-viewport>
+
+  </div>

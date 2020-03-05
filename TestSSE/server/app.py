@@ -36,6 +36,19 @@ def send_message():
     return jsonify({'code': 200, 'errmsg': 'success', 'data': None})
     #return Response(status=200, mimetype='application/json');
 
+@app.route("/api/dvrpost",methods=['POST'])
+def send_dvrmessage():
+    content = request.json
+    channel=None
+    message=None
+    if(content!=None):
+        channel=content['channel']
+        message=content['message']
+    #print(channel)
+    sse.publish({"message":message},type='dvr',channel=channel)
+    return jsonify({'code': 200, 'errmsg': 'success', 'data': None})
+    #return Response(status=200, mimetype='application/json');
+
 @app.route('/')
 def index():
     return Response(status=200, mimetype='application/json')

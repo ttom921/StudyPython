@@ -8,25 +8,25 @@
     <mat-nav-list>
       <mat-list-item [routerLink]="['/','dashboard','chat']">
         <mat-icon mat-list-icon>person</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">serversetting</h4>
+        <h4 mat-line *ngIf="isExpanded">chat list</h4>
       </mat-list-item>
       <mat-list-item [routerLink]="['/','dashboard','chatpost']">
         <mat-icon mat-list-icon>assignment</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Car List</h4>
+        <h4 mat-line *ngIf="isExpanded">char post</h4>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/','dashboard','dvrpost']">
         <mat-icon mat-list-icon>domain</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Management C</h4>
+        <h4 mat-line *ngIf="isExpanded">DVR post</h4>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item [routerLink]="['/','dashboard','dvrlist']">
         <mat-icon mat-list-icon>folder_shared</mat-icon>
-        <h4 mat-line *ngIf="isExpanded">Management X</h4>
+        <h4 mat-line *ngIf="isExpanded">DVR list</h4>
       </mat-list-item>
 
     </mat-nav-list>
   </mat-drawer>
 
-  <div>
+  <div style="margin-left: 2px;">
     <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>
