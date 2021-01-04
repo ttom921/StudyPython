@@ -8,7 +8,9 @@ import { Event } from "../model/event";
   styleUrls: ['./room1.component.scss']
 })
 export class Room1Component implements OnInit {
-  SERVER_URL = "http://localhost:5000";
+  //SERVER_URL = "http://localhost:5000";
+  //SERVER_URL = "http://192.168.83.128:5000";
+  SERVER_URL = "http://192.168.83.128:5000";
   textValue = "";
   messages: string[] = [];
   constructor(private socketService: SocketService) { }
