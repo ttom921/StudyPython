@@ -16,29 +16,29 @@ export class Room1Component implements OnInit {
   constructor(private socketService: SocketService) { }
 
   ngOnInit() {
-    this.initIoConnection(this.SERVER_URL);
+    //this.initIoConnection(this.SERVER_URL);
   }
   private initIoConnection(nsspace: string) {
-    this.socketService.initSocket(nsspace);
+    // this.socketService.initSocket(nsspace);
 
-    this.socketService.onEvent(Event.CONNECT).subscribe(() => {
-      console.log("[client] connedted");
-      this.socketService.SendConnect();
-    });
-    this.socketService.onEvent(Event.DISCONNECT).subscribe(() => {
-      console.log("[client] disconnedted");
-    });
-    this.socketService.Onchatmessage().subscribe((data) => {
-      let fmtmsg = `[client ]<chatmessage> Message=${data}`;
-      this.messages.push(fmtmsg);
-    });
+    // this.socketService.onEvent(Event.CONNECT).subscribe(() => {
+    //   console.log("[client] connedted");
+    //   this.socketService.SendConnect();
+    // });
+    // this.socketService.onEvent(Event.DISCONNECT).subscribe(() => {
+    //   console.log("[client] disconnedted");
+    // });
+    // this.socketService.Onchatmessage().subscribe((data) => {
+    //   let fmtmsg = `[client ]<chatmessage> Message=${data}`;
+    //   this.messages.push(fmtmsg);
+    // });
   }
   public Sendchatmessage() {
-    // let fmtmsg = `[client ns:${this.curnamespace}]<chatmessage>=${this.textValue}`
-    let fmtmsg = `[client]<chatmessage>=${this.textValue}`;
-    console.log(fmtmsg);
-    this.socketService.Sendchatmessage(this.textValue);
-    this.textValue = "";
+    // // let fmtmsg = `[client ns:${this.curnamespace}]<chatmessage>=${this.textValue}`
+    // let fmtmsg = `[client]<chatmessage>=${this.textValue}`;
+    // console.log(fmtmsg);
+    // this.socketService.Sendchatmessage(this.textValue);
+    // this.textValue = "";
   }
 
 
